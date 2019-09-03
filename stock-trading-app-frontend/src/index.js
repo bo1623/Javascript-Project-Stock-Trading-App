@@ -24,14 +24,18 @@ function getNewPrice(prices){
   // console.log(last)
   // console.log(lastPrice)
   // console.log(lastTime)
+  return last
   //put this under getAPI?
   //where do i place setInterval?
+}
+
+function getNewPriceTest(){
+  return Math.random()*100
 }
 
 async function addNewPrices(){
   console.log(ticker.value)
   let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker.value}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
-  console.log(link)
   const resp = await fetch(link)
   const json = await resp.json()
   const timeseries= await json['Time Series (1min)']
@@ -42,8 +46,20 @@ async function addNewPrices(){
     })
   })
   console.log(prices)
-  //
-  // Plotly.extendTraces('chart',{ x:[[getNewPrice(prices).lastTime]], y:[[getNewPrice(prices).price]]}, [0]);
+  console.log(getNewPrice(prices).timestamp)
+  console.log(getNewPrice(prices).price)
+
+  Plotly.extendTraces('chart',{ x:[[getNewPrice(prices).timestamp]], y:[[getNewPrice(prices).price]]}, [0]);
+  cnt++;
+  if(cnt > 500) {
+      Plotly.relayout('chart',{
+          xaxis: {
+              range: [cnt-500,cnt] //setting the range of x-axis
+          }
+      });
+  }
+
+  // Plotly.extendTraces('chart',{ x:[[getNewPriceTest()]], y:[[getNewPriceTest()]]}, [0]);
   // cnt++;
   // if(cnt > 500) {
   //     Plotly.relayout('chart',{
