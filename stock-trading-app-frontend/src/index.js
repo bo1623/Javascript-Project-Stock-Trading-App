@@ -15,27 +15,21 @@ function plotData(prices){
 var cnt = 0
 const MarketOpen = '093000'
 const MarketClose = '160000'
-// setInterval(function(){
-//   let current=time()
-//   if (current>MarketOpen && current<MarketClose){
-//     addNewPrices()
-//   }
-// },1000);
+
 
 function getNewPrice(prices){
   let last = prices[prices.length-1]
   let lastPrice=last.price
   let lastTime=last.timestamp
+  console.log(last)
   console.log(lastPrice)
   console.log(lastTime)
   //put this under getAPI?
   //where do i place setInterval?
 }
 
-function addNewPrices(){
-  let current=new Date()
-  console.log(current)
-  Plotly.extendTraces('chart',{ y:[[getAPI("MDT")]]}, [0]);
+function addNewPrices(prices){
+  Plotly.extendTraces('chart',{ x:[[getNewPrice(prices).lastTime]], y:[[getNewPrice(prices).price]]}, [0]);
   cnt++;
   if(cnt > 500) {
       Plotly.relayout('chart',{
@@ -59,7 +53,13 @@ async function getAPI(ticker){
     })
   })
   plotData(prices)
-  getNewPrice(prices)
+
+  setInterval(function(){
+    let current=time()
+    if (current>MarketOpen && current<MarketClose){
+      addNewPrices()
+    }
+  },1000);
 }
 
 function getTimes(prices){
