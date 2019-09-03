@@ -21,24 +21,44 @@ function getNewPrice(prices){
   let last = prices[prices.length-1]
   let lastPrice=last.price
   let lastTime=last.timestamp
-  console.log(last)
-  console.log(lastPrice)
-  console.log(lastTime)
+  // console.log(last)
+  // console.log(lastPrice)
+  // console.log(lastTime)
   //put this under getAPI?
   //where do i place setInterval?
 }
 
-function addNewPrices(prices){
-  Plotly.extendTraces('chart',{ x:[[getNewPrice(prices).lastTime]], y:[[getNewPrice(prices).price]]}, [0]);
-  cnt++;
-  if(cnt > 500) {
-      Plotly.relayout('chart',{
-          xaxis: {
-              range: [cnt-500,cnt] //setting the range of x-axis
-          }
-      });
-  }
+function addNewPrices(){
+  console.log(ticker.value)
+  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
+  const resp = await fetch(link)
+  const json = await resp.json()
+  const timeseries= await json['Time Series (1min)']
+  let prices= await Object.keys(timeseries).map(function(key){
+    return Object.assign({},{
+      timestamp: key,
+      price: timeseries[key]["4. close"]
+    })
+  })
+  //
+  // Plotly.extendTraces('chart',{ x:[[getNewPrice(prices).lastTime]], y:[[getNewPrice(prices).price]]}, [0]);
+  // cnt++;
+  // if(cnt > 500) {
+  //     Plotly.relayout('chart',{
+  //         xaxis: {
+  //             range: [cnt-500,cnt] //setting the range of x-axis
+  //         }
+  //     });
+  // }
 }
+
+setInterval(function(){
+  let current=time()
+  // if (current>MarketOpen && current<MarketClose){
+  //   addNewPrices()
+  // }
+  addNewPrices()
+},1000);
 
 
 async function getAPI(ticker){
@@ -53,13 +73,6 @@ async function getAPI(ticker){
     })
   })
   plotData(prices)
-
-  setInterval(function(){
-    let current=time()
-    if (current>MarketOpen && current<MarketClose){
-      addNewPrices()
-    }
-  },1000);
 }
 
 function getTimes(prices){
