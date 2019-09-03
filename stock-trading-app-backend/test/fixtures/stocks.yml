@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticker: MyString
+  latest_price: 9.99
+  name: MyString
+  shares_outstanding: 1
+  52_wk_low: 9.99
+  52_wk_high: 9.99
+  pe_ratio: 9.99
+  market_cap: 9.99
+  beta: 9.99
+  eps: 9.99
+  div_yield: 9.99
+
+two:
+  ticker: MyString
+  latest_price: 9.99
+  name: MyString
+  shares_outstanding: 1
+  52_wk_low: 9.99
+  52_wk_high: 9.99
+  pe_ratio: 9.99
+  market_cap: 9.99
+  beta: 9.99
+  eps: 9.99
+  div_yield: 9.99

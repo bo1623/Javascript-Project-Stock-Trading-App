@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  size: 1
+  stock: one
+  user: one
+  cost: 9.99
+  value: 9.99
+  realized: 9.99
+  unrealized: 9.99
+
+two:
+  size: 1
+  stock: two
+  user: two
+  cost: 9.99
+  value: 9.99
+  realized: 9.99
+  unrealized: 9.99

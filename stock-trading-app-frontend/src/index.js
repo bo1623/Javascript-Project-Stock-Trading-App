@@ -1,7 +1,3 @@
-// function getAPI("MDT") {
-//     return Math.random();
-// }
-
 function plotData(prices){
   Plotly.newPlot('chart',[{
       x:[getTimes(prices)][0],
@@ -12,7 +8,7 @@ function plotData(prices){
 }
 
 
-var cnt = 0
+var cnt = 0 //to be used in addNewPrices(), which is called in updateChart()
 const MarketOpen = '093000'
 const MarketClose = '160000'
 
@@ -21,7 +17,7 @@ function getNewPrice(prices){
   let last = prices[prices.length-1]
   let lastPrice=last.price
   let lastTime=last.timestamp
-  return last
+  return last //return last object within the api
 }
 
 function getNewPriceTest(){
@@ -77,6 +73,7 @@ async function getAPI(ticker){
     })
   })
   console.log('inside getAPI')
+  console.log(getNewPrice(prices).timestamp)
   plotData(prices)
 }
 
@@ -85,14 +82,14 @@ function getTimes(prices){
   let times = prices.map(function(obj){
     return obj.timestamp
   })
-  return times
+  return times //returns the array of timestamps, to be used in initial plot creation
 }
 
 function getPrices(prices){
   let ticks = prices.map(function(obj){
     return obj.price
   })
-  return ticks
+  return ticks //returns array of prices, to be used in initial plot creation
 }
 
 document.getElementById('insert-ticker').addEventListener('submit',function(event){

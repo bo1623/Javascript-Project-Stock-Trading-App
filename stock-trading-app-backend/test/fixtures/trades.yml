@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock: one
+  user: one
+  price: 9.99
+  direction: MyString
+  quantity: 1
+  time: MyString
+
+two:
+  stock: two
+  user: two
+  price: 9.99
+  direction: MyString
+  quantity: 1
+  time: MyString
