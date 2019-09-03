@@ -22,7 +22,12 @@ const MarketClose = '160000'
 //   }
 // },1000);
 
-function fetchNewPrice(ticker){
+function getNewPrice(prices){
+  let last = prices[prices.length-1]
+  let lastPrice=last.price
+  let lastTime=last.timestamp
+  console.log(lastPrice)
+  console.log(lastTime)
   //put this under getAPI?
   //where do i place setInterval?
 }
@@ -54,6 +59,7 @@ async function getAPI(ticker){
     })
   })
   plotData(prices)
+  getNewPrice(prices)
 }
 
 function getTimes(prices){
