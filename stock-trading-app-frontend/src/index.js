@@ -14,7 +14,7 @@ const MarketClose = '160000'
 
 
 function getNewPrice(prices){
-  let last = prices[prices.length-1]
+  let last = prices[0]
   let lastPrice=last.price
   let lastTime=last.timestamp
   return last //return last object within the api
@@ -95,7 +95,7 @@ function getPrices(prices){
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
   getAPI(ticker)
-  setInterval(updateChart,60000)
+  setInterval(updateChart,40000)
   event.preventDefault()
 })
 
