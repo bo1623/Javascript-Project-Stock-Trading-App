@@ -28,9 +28,10 @@ function getNewPrice(prices){
   //where do i place setInterval?
 }
 
-function addNewPrices(){
+async function addNewPrices(){
   console.log(ticker.value)
-  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
+  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker.value}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
+  console.log(link)
   const resp = await fetch(link)
   const json = await resp.json()
   const timeseries= await json['Time Series (1min)']
@@ -40,6 +41,7 @@ function addNewPrices(){
       price: timeseries[key]["4. close"]
     })
   })
+  console.log(prices)
   //
   // Plotly.extendTraces('chart',{ x:[[getNewPrice(prices).lastTime]], y:[[getNewPrice(prices).price]]}, [0]);
   // cnt++;
@@ -52,13 +54,14 @@ function addNewPrices(){
   // }
 }
 
-setInterval(function(){
-  let current=time()
-  // if (current>MarketOpen && current<MarketClose){
-  //   addNewPrices()
-  // }
-  addNewPrices()
-},1000);
+
+
+// function updateChart(){
+//   let current=time()
+//   if (current>MarketOpen && current<MarketClose){
+//     addNewPrices()
+//   }
+// }
 
 
 async function getAPI(ticker){
@@ -72,8 +75,10 @@ async function getAPI(ticker){
       price: timeseries[key]["4. close"]
     })
   })
+  console.log('inside getAPI')
   plotData(prices)
 }
+
 
 function getTimes(prices){
   let times = prices.map(function(obj){
@@ -92,6 +97,7 @@ function getPrices(prices){
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
   getAPI(ticker)
+  setInterval(addNewPrices,5000)
   event.preventDefault()
 })
 
