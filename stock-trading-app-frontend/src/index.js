@@ -1,7 +1,7 @@
 function plotData(prices){
   Plotly.newPlot('chart',[{
-      x:[getTimes(prices)][0],
-      y:[getPrices(prices)][0],
+      x:[getTimes(prices)][0].reverse(),
+      y:[getPrices(prices)][0].reverse(),
       type:'line'
   }]);
   console.log(prices)
