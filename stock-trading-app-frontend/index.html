@@ -7,29 +7,13 @@
   </head>
   <body>
     <div class="wrapper">
+      <form id="insert-ticker" action="#" method="post">
+        <label for="ticker">Ticker: </label>
+        <input id="ticker" name="ticker" placeholder="Insert Ticker">
+        <input type="submit" value="Submit">
+      </form>
       <div id="chart"></div>
-       <script>
-           function getData() {
-               return Math.random();
-           }
-           Plotly.plot('chart',[{
-               y:[getData()],
-               type:'line'
-           }]);
-
-           var cnt = 0;
-           setInterval(function(){
-               Plotly.extendTraces('chart',{ y:[[getData()]]}, [0]);
-               cnt++;
-               if(cnt > 500) {
-                   Plotly.relayout('chart',{
-                       xaxis: {
-                           range: [cnt-500,cnt]
-                       }
-                   });
-               }
-           },15);
-       </script>
+       <script src="./src/index.js"></script>
     </div>
 
   </body>
