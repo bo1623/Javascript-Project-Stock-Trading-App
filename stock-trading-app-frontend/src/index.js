@@ -26,21 +26,21 @@ function getNewPriceTest(){
 
 async function addNewPrices(){
   console.log(ticker.value)
-  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker.value}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
-  const resp = await fetch(link)
-  const json = await resp.json()
-  const timeseries= await json['Time Series (1min)']
-  let prices= await Object.keys(timeseries).map(function(key){
+  let newLink=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker.value}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
+  const newResp = await fetch(newLink)
+  const newJson = await newResp.json()
+  const newTimeSeries= await newJson['Time Series (1min)']
+  let newPrices= await Object.keys(newTimeSeries).map(function(key){
     return Object.assign({},{
       timestamp: key,
-      price: timeseries[key]["4. close"]
+      price: newTimeSeries[key]["4. close"]
     })
   })
-  console.log(prices)
-  console.log(getNewPrice(prices).timestamp)
-  console.log(getNewPrice(prices).price)
+  console.log(newPrices)
+  console.log(getNewPrice(newPrices).timestamp)
+  console.log(getNewPrice(newPrices).price)
 
-  Plotly.extendTraces('chart',{ x:[[getNewPrice(prices).timestamp]], y:[[getNewPrice(prices).price]]}, [0]);
+  Plotly.extendTraces('chart',{ x:[[getNewPrice(newPrices).timestamp]], y:[[getNewPrice(newPrices).price]]}, [0]);
   cnt++;
   if(cnt > 500) {
       Plotly.relayout('chart',{
@@ -95,7 +95,7 @@ function getPrices(prices){
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
   getAPI(ticker)
-  setInterval(updateChart,5000)
+  setInterval(updateChart,60000)
   event.preventDefault()
 })
 
@@ -111,3 +111,18 @@ function time() {
 function modNumber(num){
   return num.toString().length===2 ? num.toString() : `0${num}`
 }
+
+//login function
+function displayLogin(){
+  if (!document.getElementById('login')){
+    document.querySelector('.wrapper').innerHTML+=`
+    <form id="login" action="#" method="post">
+      <label for="username">Username: </label>
+      <input id="username" name="username">
+      <input type="submit" value="Submit">
+    </form>
+    `
+  }
+}
+
+// displayLogin()
