@@ -82,7 +82,7 @@ function getTimes(prices){
   let times = prices.map(function(obj){
     return obj.timestamp
   })
-  return times //returns the array of timestamps, to be used in initial plot creation
+  return times.filter(filterOutWeekend) //returns the array of timestamps, to be used in initial plot creation
 }
 
 function getPrices(prices){
