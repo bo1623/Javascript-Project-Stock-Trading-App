@@ -21,12 +21,7 @@ function getNewPrice(prices){
   let last = prices[prices.length-1]
   let lastPrice=last.price
   let lastTime=last.timestamp
-  // console.log(last)
-  // console.log(lastPrice)
-  // console.log(lastTime)
   return last
-  //put this under getAPI?
-  //where do i place setInterval?
 }
 
 function getNewPriceTest(){
@@ -58,26 +53,16 @@ async function addNewPrices(){
           }
       });
   }
-
-  // Plotly.extendTraces('chart',{ x:[[getNewPriceTest()]], y:[[getNewPriceTest()]]}, [0]);
-  // cnt++;
-  // if(cnt > 500) {
-  //     Plotly.relayout('chart',{
-  //         xaxis: {
-  //             range: [cnt-500,cnt] //setting the range of x-axis
-  //         }
-  //     });
-  // }
 }
 
 
 
-// function updateChart(){
-//   let current=time()
-//   if (current>MarketOpen && current<MarketClose){
-//     addNewPrices()
-//   }
-// }
+function updateChart(){
+  let current=time()
+  if (current>MarketOpen && current<MarketClose){
+    addNewPrices()
+  }
+}
 
 
 async function getAPI(ticker){
@@ -113,7 +98,7 @@ function getPrices(prices){
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
   getAPI(ticker)
-  setInterval(addNewPrices,5000)
+  setInterval(updateChart,5000)
   event.preventDefault()
 })
 
