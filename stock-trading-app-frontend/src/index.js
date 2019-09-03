@@ -80,7 +80,7 @@ function time() {
   let newdate = new Date();
   let seconds = modNumber(newdate.getSeconds());
   let minutes = modNumber(newdate.getMinutes());
-  let hours = modNumber((newdate.getHours()-12));
+  let hours = newdate.getHours() > 12 ? modNumber((newdate.getHours()-12)) : modNumber((newdate.getHours()+12))
   let current = `${hours}${minutes}${seconds}`
   return current
 }
