@@ -103,20 +103,20 @@ function updateRealTimePrice(price){ //to be initiated once ticker is submitted
 }
 
 async function getLongAPI(ticker){
-  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=ZREIW6HJ1LEBYBQT`;
-  const resp = await fetch(link)
-  const json = await resp.json()
-  const timeseries= await json['Time Series (Daily)']
-  let prices= await Object.keys(timeseries).map(function(key){
+  let longLink=`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=ZREIW6HJ1LEBYBQT`;
+  const longResp = await fetch(longLink)
+  const longJson = await longResp.json()
+  const longTimeseries= await longJson['Time Series (Daily)']
+  let longPrices= await Object.keys(longTimeseries).map(function(key){
     return Object.assign({},{
       timestamp: key,
-      price: timeseries[key]["4. close"]
+      price: longTimeseries[key]["4. close"]
     })
   })
   console.log('inside getAPI')
-  console.log(getNewPrice(prices).timestamp)
-  plotData(prices,ticker)
-  addRealTimePriceDiv(prices)
+  console.log(getNewPrice(longPrices).timestamp)
+  plotData(longPrices,ticker)
+  addRealTimePriceDiv(longPrices)
   setInterval(updateChart,40000) //setting interval here to call updateRealTimePrice which sits within updateChart
 }
 
@@ -125,6 +125,7 @@ async function getAPI(ticker){
   const resp = await fetch(link)
   const json = await resp.json()
   const timeseries= await json['Time Series (1min)']
+  console.log(timeseries)
   let prices= await Object.keys(timeseries).map(function(key){
     return Object.assign({},{
       timestamp: key,
@@ -164,7 +165,7 @@ body.addEventListener('click',function(event){
   }else if(event.target.id==='intraday'){
     let ticker=document.getElementById('ticker').value
     getAPI(ticker)
-    setInterval(updateChart,40000)
+    // setInterval(updateChart,40000)
     console.log('clicking on intraday')
   }
 })
