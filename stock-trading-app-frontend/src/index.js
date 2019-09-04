@@ -1,4 +1,13 @@
-function plotData(prices){
+function plotData(prices,ticker){
+  let layout = {
+    title: {
+      text:`${ticker}`,
+      font: {
+        // family: 'Courier New, monospace',
+        size: 24
+      }
+    }
+  }
   Plotly.newPlot('chart',[{
       x:[getTimes(prices)][0].reverse(),
       y:[getPrices(prices)][0].reverse(),
@@ -10,7 +19,7 @@ function plotData(prices){
         operation: '!=',
         value: null
       }]
-  }]);
+  }],layout);
   console.log(getTimes(prices))
   console.log(getPrices(prices))
 }
@@ -97,7 +106,7 @@ async function getLongAPI(ticker){
   })
   console.log('inside getAPI')
   console.log(getNewPrice(prices).timestamp)
-  plotData(prices)
+  plotData(prices,ticker)
 }
 
 async function getAPI(ticker){
