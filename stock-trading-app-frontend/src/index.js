@@ -58,6 +58,7 @@ async function addNewPrices(){
       price: newTimeSeries[key]["4. close"]
     })
   })
+  console.log('new price added')
   console.log(newPrices)
   console.log(getNewPrice(newPrices).timestamp)
   console.log(getNewPrice(newPrices).price)
@@ -135,9 +136,8 @@ body.addEventListener('click',function(event){
     getLongAPI(ticker)
   }else if(event.target.id==='intraday'){
     let ticker=document.getElementById('ticker').value
-    console.log(ticker)
     getAPI(ticker)
-    setInterval(updateChart,40000)
+    let updateIntraday=setInterval(updateChart,40000)
     console.log('clicking on intraday')
   }
 })
