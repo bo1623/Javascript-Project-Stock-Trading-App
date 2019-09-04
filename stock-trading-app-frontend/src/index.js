@@ -140,13 +140,6 @@ function modNumber(num){
   return num.toString().length===2 ? num.toString() : `0${num}`
 }
 
-// function filterOutWeekend(timestamp)  {
-//   var date = new Date(timestamp);
-//   var day = date.getDay();
-//
-//   return (day === 0 || day === 6) ? null : timestamp;
-// }
-
 //login function
 function displayLogin(){
   if (!document.getElementById('login')){
