@@ -173,12 +173,12 @@ function displayLogin(){
 }
 
 function displayButtons(){
-  document.querySelector('body').innerHTML+=`
-  <div class="btn-group">
-  <button id='5m'>5 Months</button>
-  <button id='intraday'>Intraday</button>
-</div>
-`
+  if(!document.getElementById('5m')){ //condition to detect if the buttons have already been created
+    document.querySelector('.btn-group').innerHTML+=`
+    <button id='5m'>5 Months</button>
+    <button id='intraday'>Intraday</button>
+  `
+  }
 }
 
 class User{
