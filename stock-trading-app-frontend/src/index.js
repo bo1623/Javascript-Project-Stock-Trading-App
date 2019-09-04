@@ -187,7 +187,7 @@ function modNumber(num){
 function displayLogin(){
   if (!document.getElementById('login')){
     document.getElementById('insert-ticker').insertAdjacentHTML('afterEnd',`
-    <form id="login" action="#" method="post">
+    <form id="login" action="http://localhost:3000/users" method="post">
       <label for="username">Username: </label>
       <input id="username" name="username">
       <input type="submit" value="Submit">
@@ -224,6 +224,10 @@ class User{
 
 
 displayLogin()
-document.getElementById('login').addEventListener(event){
-  
-}
+document.getElementById('login').addEventListener('submit',function(event){
+  console.log('login clicked')
+  let username=document.getElementById('username').value
+  let user=new User(username)
+  user.postUser()
+  event.preventDefault()
+})
