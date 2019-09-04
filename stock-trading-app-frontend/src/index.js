@@ -186,13 +186,13 @@ function modNumber(num){
 //login function
 function displayLogin(){
   if (!document.getElementById('login')){
-    document.querySelector('.wrapper').innerHTML+=`
+    document.getElementById('insert-ticker').insertAdjacentHTML('afterEnd',`
     <form id="login" action="#" method="post">
       <label for="username">Username: </label>
       <input id="username" name="username">
       <input type="submit" value="Submit">
     </form>
-    `
+    `)
   }
 }
 
@@ -211,7 +211,7 @@ class User{
   }
 
   postUser(){
-    fetch('http://localhost:3000/users'{
+    fetch('http://localhost:3000/users',{
       method:'POST',
       headers: {
         "Content-Type":"application/json",
@@ -223,4 +223,7 @@ class User{
 }
 
 
-// displayLogin()
+displayLogin()
+document.getElementById('login').addEventListener(event){
+  
+}
