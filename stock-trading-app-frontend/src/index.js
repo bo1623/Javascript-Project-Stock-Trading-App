@@ -51,10 +51,6 @@ function getNewPrice(prices){
   return last //return last object within the api
 }
 
-function getNewPriceTest(){
-  return Math.random()*100
-}
-
 async function addNewPrices(){
   console.log(ticker.value)
   let newLink=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker.value}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
@@ -212,6 +208,17 @@ function displayButtons(){
 class User{
   constructor(username){
     this.username=username
+  }
+
+  postUser(){
+    fetch('http://localhost:3000/users'{
+      method:'POST',
+      headers: {
+        "Content-Type":"application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(this)
+    })
   }
 }
 
