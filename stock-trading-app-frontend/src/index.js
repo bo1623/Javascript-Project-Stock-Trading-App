@@ -118,9 +118,28 @@ async function getAPI(ticker){
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
   getLongAPI(ticker)
-  setInterval(updateChart,40000)
+  setDivTicker(ticker)
   displayButtons()
   event.preventDefault()
+})
+
+function setDivTicker(ticker){
+  let chartDiv=document.querySelector('#chart')
+  chartDiv.setAttribute("ticker",`${ticker}`)
+}
+
+let body=document.querySelector('body')
+body.addEventListener('click',function(event){
+  if(event.target.id==='5m'){
+    let ticker=document.getElementById('ticker').value
+    getLongAPI(ticker)
+  }else if(event.target.id==='intraday'){
+    let ticker=document.getElementById('ticker').value
+    console.log(ticker)
+    getAPI(ticker)
+    setInterval(updateChart,40000)
+    console.log('clicking on intraday')
+  }
 })
 
 //create 5m button and intraday button to toggle chart format
@@ -156,8 +175,8 @@ function displayLogin(){
 function displayButtons(){
   document.querySelector('body').innerHTML+=`
   <div class="btn-group">
-  <button>5 Months</button>
-  <button>Intraday</button>
+  <button id='5m'>5 Months</button>
+  <button id='intraday'>Intraday</button>
 </div>
 `
 }
