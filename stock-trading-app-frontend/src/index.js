@@ -141,10 +141,8 @@ function setDivTicker(ticker){
 
 function addRealTimePriceDiv(prices){
   let last=getNewPrice(prices)
-  let form=document.getElementById('insert-ticker')
-  form.insertAdjacentHTML('afterend', `<div id="real-time-price">${ticker.value}: ${last.price}</div>`);
-  // console.log('inside addRealTimePriceDiv')
-  // console.log(last)
+  let realTimePrice=document.getElementById('real-time-price')
+  realTimePrice.innerText=`${ticker.value}: ${last.price}`
 }
 
 let body=document.querySelector('body')
