@@ -107,6 +107,7 @@ async function getLongAPI(ticker){
   console.log('inside getAPI')
   console.log(getNewPrice(prices).timestamp)
   plotData(prices,ticker)
+  addRealTimePriceDiv(prices)
 }
 
 async function getAPI(ticker){
@@ -128,14 +129,22 @@ async function getAPI(ticker){
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
   getLongAPI(ticker)
-  setDivTicker(ticker)
-  displayButtons()
+  setDivTicker(ticker) //adding ticker attribute to the chart div
+  displayButtons() //create toggle buttons for 5m and intraday prices
   event.preventDefault()
 })
 
 function setDivTicker(ticker){
   let chartDiv=document.querySelector('#chart')
   chartDiv.setAttribute("ticker",`${ticker}`)
+}
+
+function addRealTimePriceDiv(prices){
+  let last=getNewPrice(prices)
+  let form=document.getElementById('insert-ticker')
+  form.insertAdjacentHTML('afterend', `<div id="real-time-price">${ticker.value}: ${last.price}</div>`);
+  // console.log('inside addRealTimePriceDiv')
+  // console.log(last)
 }
 
 let body=document.querySelector('body')
