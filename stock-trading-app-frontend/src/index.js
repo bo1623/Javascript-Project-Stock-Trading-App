@@ -72,6 +72,8 @@ async function addNewPrices(){
   console.log(getNewPrice(newPrices).timestamp)
   console.log(getNewPrice(newPrices).price)
 
+  updateRealTimePrice(getNewPrice(newPrices).price) //to update realTimePrice div
+
   Plotly.extendTraces('chart',{ x:[[getNewPrice(newPrices).timestamp]], y:[[getNewPrice(newPrices).price]]}, [0]);
   cnt++;
   if(cnt > 500) {
@@ -92,6 +94,13 @@ function updateChart(){
   }
 }
 
+function updateRealTimePrice(price){ //to be initiated once ticker is submitted
+  console.log('inside updateRealTimePrice')
+  let realTimePrice=document.getElementById('real-time-price')
+  realTimePrice.innerText=`${ticker.value}: ${price}`
+  //function to update innerText of realtimeprice div
+  //leverage addNewPrices to prevent duplicating fetch requests
+}
 
 async function getLongAPI(ticker){
   let link=`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=ZREIW6HJ1LEBYBQT`;
@@ -108,6 +117,7 @@ async function getLongAPI(ticker){
   console.log(getNewPrice(prices).timestamp)
   plotData(prices,ticker)
   addRealTimePriceDiv(prices)
+  setInterval(updateChart,40000) //setting interval here to call updateRealTimePrice which sits within updateChart
 }
 
 async function getAPI(ticker){
@@ -140,6 +150,7 @@ function setDivTicker(ticker){
 }
 
 function addRealTimePriceDiv(prices){
+  console.log('addRealTimePriceDiv running')
   let last=getNewPrice(prices)
   let realTimePrice=document.getElementById('real-time-price')
   realTimePrice.innerText=`${ticker.value}: ${last.price}`
@@ -153,7 +164,7 @@ body.addEventListener('click',function(event){
   }else if(event.target.id==='intraday'){
     let ticker=document.getElementById('ticker').value
     getAPI(ticker)
-    let updateIntraday=setInterval(updateChart,40000)
+    setInterval(updateChart,40000)
     console.log('clicking on intraday')
   }
 })
