@@ -122,7 +122,7 @@ async function getAPI(ticker){
   })
   console.log('inside getAPI')
   console.log(getNewPrice(prices).timestamp)
-  plotData(prices)
+  plotData(prices,ticker)
 }
 
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
