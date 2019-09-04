@@ -7,6 +7,20 @@ function plotData(prices){
   console.log(prices)
 }
 
+function getTimes(prices){
+  let times = prices.map(function(obj){
+    return obj.timestamp
+  })
+  return times.filter(filterOutWeekend) //returns the array of timestamps, to be used in initial plot creation
+}
+
+function getPrices(prices){
+  let ticks = prices.map(function(obj){
+    return obj.price
+  })
+  return ticks //returns array of prices, to be used in initial plot creation
+}
+
 
 var cnt = 0 //to be used in addNewPrices(), which is called in updateChart()
 const MarketOpen = '093000'
@@ -62,7 +76,7 @@ function updateChart(){
 
 
 async function getAPI(ticker){
-  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=1min&apikey=ZREIW6HJ1LEBYBQT`;
+  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=1min&outputsize=full&&apikey=ZREIW6HJ1LEBYBQT`;
   const resp = await fetch(link)
   const json = await resp.json()
   const timeseries= await json['Time Series (1min)']
@@ -75,21 +89,6 @@ async function getAPI(ticker){
   console.log('inside getAPI')
   console.log(getNewPrice(prices).timestamp)
   plotData(prices)
-}
-
-
-function getTimes(prices){
-  let times = prices.map(function(obj){
-    return obj.timestamp
-  })
-  return times.filter(filterOutWeekend) //returns the array of timestamps, to be used in initial plot creation
-}
-
-function getPrices(prices){
-  let ticks = prices.map(function(obj){
-    return obj.price
-  })
-  return ticks //returns array of prices, to be used in initial plot creation
 }
 
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
@@ -129,6 +128,12 @@ function displayLogin(){
       <input type="submit" value="Submit">
     </form>
     `
+  }
+}
+
+class User{
+  constructor(username){
+    this.username=username
   }
 }
 
