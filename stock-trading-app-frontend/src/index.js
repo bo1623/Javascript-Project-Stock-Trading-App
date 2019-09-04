@@ -12,6 +12,7 @@ function plotData(prices){
       }]
   }]);
   console.log(getTimes(prices))
+  console.log(getPrices(prices))
 }
 
 function getTimes(prices){
@@ -118,8 +119,13 @@ document.getElementById('insert-ticker').addEventListener('submit',function(even
   let ticker=document.getElementById('ticker').value
   getLongAPI(ticker)
   setInterval(updateChart,40000)
+  displayButtons()
   event.preventDefault()
 })
+
+//create 5m button and intraday button to toggle chart format
+//only set interval for updateChart if the intraday button is clicked on to render the intraday chart
+//but in the background we should setInterval to update realtimeprices
 
 function time() {
   let newdate = new Date();
@@ -154,10 +160,20 @@ function displayLogin(){
   }
 }
 
+function displayButtons(){
+  document.querySelector('body').innerHTML+=`
+  <div class="btn-group">
+  <button>5 Months</button>
+  <button>Intraday</button>
+</div>
+`
+}
+
 class User{
   constructor(username){
     this.username=username
   }
 }
+
 
 // displayLogin()
