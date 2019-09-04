@@ -2,16 +2,23 @@ function plotData(prices){
   Plotly.newPlot('chart',[{
       x:[getTimes(prices)][0].reverse(),
       y:[getPrices(prices)][0].reverse(),
-      type:'line'
+      type:'scatter',
+      connectgaps: false,
+      transforms: [{
+        type: 'filter',
+        target: 'x',
+        operation: '!=',
+        value: null
+      }]
   }]);
-  console.log(prices)
+  console.log(getTimes(prices))
 }
 
 function getTimes(prices){
   let times = prices.map(function(obj){
     return obj.timestamp
   })
-  return times.filter(filterOutWeekend) //returns the array of timestamps, to be used in initial plot creation
+  return times//.filter(filterOutWeekend) //returns the array of timestamps, to be used in initial plot creation
 }
 
 function getPrices(prices){
@@ -75,8 +82,24 @@ function updateChart(){
 }
 
 
+async function getLongAPI(ticker){
+  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=compact&apikey=ZREIW6HJ1LEBYBQT`;
+  const resp = await fetch(link)
+  const json = await resp.json()
+  const timeseries= await json['Time Series (Daily)']
+  let prices= await Object.keys(timeseries).map(function(key){
+    return Object.assign({},{
+      timestamp: key,
+      price: timeseries[key]["4. close"]
+    })
+  })
+  console.log('inside getAPI')
+  console.log(getNewPrice(prices).timestamp)
+  plotData(prices)
+}
+
 async function getAPI(ticker){
-  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=1min&outputsize=full&&apikey=ZREIW6HJ1LEBYBQT`;
+  let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=1min&outputsize=compact&apikey=ZREIW6HJ1LEBYBQT`;
   const resp = await fetch(link)
   const json = await resp.json()
   const timeseries= await json['Time Series (1min)']
@@ -93,7 +116,7 @@ async function getAPI(ticker){
 
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
-  getAPI(ticker)
+  getLongAPI(ticker)
   setInterval(updateChart,40000)
   event.preventDefault()
 })
@@ -111,12 +134,12 @@ function modNumber(num){
   return num.toString().length===2 ? num.toString() : `0${num}`
 }
 
-function filterOutWeekend(timestamp)  {
-  var date = new Date(timestamp);
-  var day = date.getDay();
-
-  return (day === 0 || day === 6) ? null : timestamp;
-}
+// function filterOutWeekend(timestamp)  {
+//   var date = new Date(timestamp);
+//   var day = date.getDay();
+//
+//   return (day === 0 || day === 6) ? null : timestamp;
+// }
 
 //login function
 function displayLogin(){
