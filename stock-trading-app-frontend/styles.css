@@ -1,4 +1,5 @@
-.btn-group button {
+
+#toggle-time button {
   background-color: #000066; /* Green background */
   border: 1px solid blue; /* Green border */
   color: white; /* White text */
@@ -7,18 +8,18 @@
   float: left; /* Float the buttons side by side */
 }
 
-.btn-group button:not(:last-child) {
+#toggle-time button:not(:last-child) {
   border-right: none; /* Prevent double borders */
 }
 
 /* Clear floats (clearfix hack) */
-.btn-group:after {
+#toggle-time:after {
   content: "";
   clear: both;
   display: table;
 }
 
 /* Add a background color on hover */
-.btn-group button:hover {
+#toggle-time button:hover {
   background-color: #0000cc;
 }

@@ -200,7 +200,7 @@ function displayLogin(){
 
 function displayButtons(){
   if(!document.getElementById('5m')){ //condition to detect if the buttons have already been created
-    document.querySelector('.btn-group').innerHTML+=`
+    document.getElementById('toggle-time').innerHTML+=`
     <button id='5m'>5 Months</button>
     <button id='intraday'>Intraday</button>
   `
@@ -234,6 +234,7 @@ document.getElementById('login').addEventListener('submit',function(event){
   this.parentElement.innerHTML+=`<div id="logged-in-user">Account: ${username}</div>`
   removeLoginForm()
   addLogoutButton()
+  renderPortfolioView()
   event.preventDefault()
 })
 
@@ -242,12 +243,15 @@ function removeLoginForm(){
   elem.remove()
 }
 
-function addLogoutButton(arg){
+function addLogoutButton(){
   let elem=document.getElementById('user-login') //maybe place logout button elsewhere
-  elem.innerHTML+="<button id='logout-button'>Logout</button>"
+  elem.innerHTML+="<button id='logout-button'>Logout</button><br><br>"
 }
 
+function renderPortfolioView(){ //render trading functions, portfolio view
+  let elem=document.getElementById('buy-sell-btns')
+  elem.innerHTML+=`<button id='buy-btn' class='buy-sell'>Buy</button>
+  <button id='sell-btn' class='buy-sell'>Sell</button>
+  `
 
-
-//toggling to 5m should still use the latest intraday price
-//instead of switching to the latest daily price
+}
