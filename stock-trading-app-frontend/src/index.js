@@ -28,7 +28,14 @@ function getTimes(prices){
   let times = prices.map(function(obj){
     return obj.timestamp
   })
-  return times//.filter(filterOutWeekend) //returns the array of timestamps, to be used in initial plot creation
+  return times.filter(filterOutGaps) //returns the array of timestamps, to be used in initial plot creation
+}
+
+function filterOutGaps(timestamp)  {
+  var date = new Date(timestamp);
+  var hour = date.getHours();
+
+  return (hour<= 8 && hour>16 ) ? null : timestamp;
 }
 
 function getPrices(prices){
@@ -277,13 +284,45 @@ closeBtn.onclick = function() {
 function addStockTradeForm(direction){
   let ticker=document.getElementById('ticker').value
   let modal=document.getElementsByClassName('modal-content')[0]
-  let price=document.getElementById('real-time-price').innerText.split(' ')[1] //removing the "TICKER: " portion of the innerText
+  let tradePrice=document.getElementById('real-time-price').innerText.split(' ')[1] //removing the "TICKER: " portion of the innerText
   modal.innerHTML=`
-  <h3>${direction} ${ticker}</h3>
+  <h3>${direction} ${ticker} at ${tradePrice} per share</h3>
   <form action=# method='POST' id='trader-order'>
     <label for="quantity">Number of Shares: </label>
-    <input name='quantity' type="number">
+    <input name='quantity' type="number" id='number-of-shares'>
     <input type="submit" value="Submit Order">
   </form>
   `
 }
+
+class Trade{
+  constructor(ticker,username,price,direction,quantity){
+    this.ticker=ticker
+    this.username=username
+    this.price=price
+    this.direction=direction
+    this.quantity=quantity
+  }
+
+  postTrade(){
+    fetch("http://localhost:3000/trades",{
+      method:'POST',
+      headers: {
+        "Content-Type":"application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(this)
+    })
+  }
+}
+
+document.getElementById('trade-order').addEventListener('submit',function(event){
+  let ticker=document.querySelector('.modal-content h3').innerText.split(' ')[1]
+  let direction=document.querySelector('.modal-content h3').innerText.split(' ')[0]
+  let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
+  let tradePrice=document.getElementById('real-time-price').innerText.split(' ')[1]
+  let quantity=document.getElementById('number-of-shares').value
+  let trade=new Trade(ticker,username,tradePrice,direction,quantity)
+  trade.postTrade()
+  event.preventDefault()
+})
