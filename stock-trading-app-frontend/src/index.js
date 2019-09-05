@@ -316,7 +316,8 @@ class Trade{
   }
 }
 
-document.getElementById('trade-order').addEventListener('submit',function(event){
+document.getElementsByClassName('modal-content')[0].addEventListener('submit',function(event){
+  console.log('trade form submit button working')
   let ticker=document.querySelector('.modal-content h3').innerText.split(' ')[1]
   let direction=document.querySelector('.modal-content h3').innerText.split(' ')[0]
   let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
