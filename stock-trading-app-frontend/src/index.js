@@ -113,7 +113,7 @@ async function getLongAPI(ticker){
   console.log(getNewPrice(longPrices).timestamp)
   plotData(longPrices,ticker)
   addRealTimePriceDiv(longPrices)
-  setInterval(updateChart,40000) //setting interval here to call updateRealTimePrice which sits within updateChart
+  setInterval(updateChart,60000) //setting interval here to call updateRealTimePrice which sits within updateChart
 }
 
 async function getAPI(ticker){
@@ -187,11 +187,13 @@ function modNumber(num){
 function displayLogin(){
   if (!document.getElementById('login')){
     document.getElementById('insert-ticker').insertAdjacentHTML('afterEnd',`
-    <form id="login" action="http://localhost:3000/users" method="post">
-      <label for="username">Username: </label>
-      <input id="username" name="username">
-      <input type="submit" value="Submit">
-    </form>
+    <div id="user-login">
+      <form id="login" action="http://localhost:3000/users" method="post">
+        <label for="username">Username: </label>
+        <input id="username" name="username">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
     `)
   }
 }
@@ -225,9 +227,21 @@ class User{
 
 displayLogin()
 document.getElementById('login').addEventListener('submit',function(event){
-  console.log('login clicked')
+  console.log(this.parentElement)
   let username=document.getElementById('username').value
   let user=new User(username)
-  user.postUser()
+  user.postUser() //creating or finding user in the backend
+  this.parentElement.innerHTML+=`<div id="logged-in-user">Account: ${username}</div>`
+  removeLoginForm()
   event.preventDefault()
 })
+
+function removeLoginForm(){
+  let elem = document.getElementById('login')
+  elem.remove()
+}
+
+
+
+//toggling to 5m should still use the latest intraday price
+//instead of switching to the latest daily price
