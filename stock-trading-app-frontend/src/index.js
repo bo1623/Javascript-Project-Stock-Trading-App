@@ -253,5 +253,18 @@ function renderPortfolioView(){ //render trading functions, portfolio view
   elem.innerHTML+=`<button id='buy-btn' class='buy-sell'>Buy</button>
   <button id='sell-btn' class='buy-sell'>Sell</button>
   `
+}
 
+let modal = document.querySelector(".modal")
+let closeBtn = document.querySelector(".close-btn")
+
+document.getElementById('buy-sell-btns').addEventListener('click',function(event){
+  if(event.target.className==='buy-sell'){
+    modal.style.display='block'
+  }
+})
+
+
+closeBtn.onclick = function() {
+  modal.style.display = "none";
 }
