@@ -233,12 +233,18 @@ document.getElementById('login').addEventListener('submit',function(event){
   user.postUser() //creating or finding user in the backend
   this.parentElement.innerHTML+=`<div id="logged-in-user">Account: ${username}</div>`
   removeLoginForm()
+  addLogoutButton()
   event.preventDefault()
 })
 
 function removeLoginForm(){
   let elem = document.getElementById('login')
   elem.remove()
+}
+
+function addLogoutButton(arg){
+  let elem=document.getElementById('user-login') //maybe place logout button elsewhere
+  elem.innerHTML+="<button id='logout-button'>Logout</button>"
 }
 
 
