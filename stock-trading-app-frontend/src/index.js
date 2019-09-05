@@ -261,10 +261,29 @@ let closeBtn = document.querySelector(".close-btn")
 document.getElementById('buy-sell-btns').addEventListener('click',function(event){
   if(event.target.className==='buy-sell'){
     modal.style.display='block'
+    console.log(event.target.id)
+    if(event.target.id==='buy-btn'){
+      addStockTradeForm('Buy')
+    }else if(event.target.id==='sell-btn'){
+      addStockTradeForm('Sell')
+    }
   }
 })
 
-
 closeBtn.onclick = function() {
   modal.style.display = "none";
+}
+
+function addStockTradeForm(direction){
+  let ticker=document.getElementById('ticker').value
+  let modal=document.getElementsByClassName('modal-content')[0]
+  let price=document.getElementById('real-time-price').innerText.split(' ')[1] //removing the "TICKER: " portion of the innerText
+  modal.innerHTML=`
+  <h3>${direction} ${ticker}</h3>
+  <form action=# method='POST' id='trader-order'>
+    <label for="quantity">Number of Shares: </label>
+    <input name='quantity' type="number">
+    <input type="submit" value="Submit Order">
+  </form>
+  `
 }
