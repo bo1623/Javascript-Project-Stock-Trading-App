@@ -6,13 +6,13 @@ class UserSerializer
   end
 
   def to_serialized_json
-    # options={
-    #   include: {
-    #     trainer:{
-    #       only: [:name]
-    #     }
-    #   }
-    # }
+    options={
+      include: {
+        trades:{
+          only: [:stock_id,:user_id,:price,:direction,:quantity]
+        }
+      }
+    }
     @user.to_json(options)
   end
 
