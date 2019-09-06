@@ -10,7 +10,8 @@ class Position < ApplicationRecord
     elsif direction=="Sell"
       avg_cost=self.cost/self.size
       self.size-=quantity
-      self.value=self.size*price
+      self.value=(self.size-quantity)*price
+      self.unrealized=(self.size-quantity)*(price-avg_cost)
       self.cost=avg_cost*self.size
       self.realized+=quantity*(price-avg_cost)
     end

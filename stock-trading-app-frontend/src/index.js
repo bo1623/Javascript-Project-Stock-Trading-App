@@ -415,11 +415,11 @@ class Position{//to be used in updateRealTimePrice
       body: JSON.stringify(this)
     })
     .then(resp=>resp.json()) //retrieving the render json at the end of show
-    .then(json=>updateUnrealizedInTable(json)) //now just need to replace this with a function to update unrealized profit on the DOM
+    .then(json=>updateUnrealizedAndValueInTable(json)) //now just need to replace this with a function to update unrealized profit on the DOM
   }
 }
 
-function updateUnrealizedInTable(position){
+function updateUnrealizedAndValueInTable(position){
   console.log('updating unrealized profit in table')
   let ticker=position.stock.ticker
   let unrealized=document.querySelector(`#${ticker}-unrealized-profit`)
