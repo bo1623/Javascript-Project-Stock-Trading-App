@@ -8,7 +8,7 @@ class PositionsController < ApplicationController
   def create
   end
 
-  def show
+  def updatePrice
     user=User.find_by(username: params[:username]) #imagine getting a fetch request from JS with username as the params
     stock=Stock.find_by(ticker:params[:ticker]) #imagine getting a fetch request from JS containing ticker in params
     position=Position.find_by(stock_id: stock.id, user_id: user.id)

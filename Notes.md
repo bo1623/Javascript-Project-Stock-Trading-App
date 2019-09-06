@@ -1,5 +1,7 @@
 API requests are limited to 5 API requests per minute and 500 requests per day
 
+The reason I placed update_unrealized in the positionscontroller is because i want to call this periodically instead of whenever a trade is created
+
 
 #buy-btn button {
   background-color: #339933; /* Green background */

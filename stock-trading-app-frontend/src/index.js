@@ -76,7 +76,7 @@ async function addNewPrices(){
   console.log(getNewPrice(newPrices).price)
 
   updateRealTimePrice(getNewPrice(newPrices).price) //to update realTimePrice div
-
+  //update unrealized profit here
   Plotly.extendTraces('chart',{ x:[[getNewPrice(newPrices).timestamp]], y:[[getNewPrice(newPrices).price]]}, [0]);
   cnt++;
   if(cnt > 500) {
@@ -103,6 +103,14 @@ function updateRealTimePrice(price){ //to be initiated once ticker is submitted
   realTimePrice.innerText=`${ticker.value}: ${price}`
   //function to update innerText of realtimeprice div
   //leverage addNewPrices to prevent duplicating fetch requests
+  updateUnrealized(price)
+}
+
+function updateUnrealized(price){
+  let ticker=document.querySelector('.modal-content h3').innerText.split(' ')[1]
+  let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
+  let update=new Position(username,ticker,price)
+  update.postUpdatedPrice()
 }
 
 async function getLongAPI(ticker){
@@ -313,6 +321,26 @@ class Trade{
       },
       body: JSON.stringify(this)
     })
+  }
+}
+
+class Position{//to be used in updateRealTimePrice
+  constructor(username,ticker,price){
+    this.username=username
+    this.ticker=ticker
+    this.price=price
+  }
+
+  postUpdatedPrice(){
+    fetch("http://localhost:3000/position",{
+      method:'POST',
+      headers: {
+        "Content-Type":"application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(this)
+    })
+    .then(resp=>resp.json()) //retrieving the render json at the end of show
   }
 }
 
