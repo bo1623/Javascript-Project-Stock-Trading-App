@@ -18,6 +18,7 @@ class Position < ApplicationRecord
   end
 
   def update_unrealized(price:)
+    self.value=price*self.size
     self.unrealized = price*self.size-self.cost
     self.save
   end

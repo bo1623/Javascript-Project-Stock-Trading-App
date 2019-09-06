@@ -422,8 +422,10 @@ class Position{//to be used in updateRealTimePrice
 function updateUnrealizedInTable(position){
   console.log('updating unrealized profit in table')
   let ticker=position.stock.ticker
-  let row=document.querySelector(`#${ticker}-unrealized-profit`)
-  row.innerText=position.unrealized
+  let unrealized=document.querySelector(`#${ticker}-unrealized-profit`)
+  let value=document.querySelector(`#${ticker}-value`)
+  unrealized.innerText=Number(position.unrealized).toFixed(2)
+  value.innerText=Number(position.value).toFixed(2)
 }
 
 document.getElementsByClassName('modal-content')[0].addEventListener('submit',function(event){
