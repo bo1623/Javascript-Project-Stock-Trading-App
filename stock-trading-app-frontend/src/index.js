@@ -280,7 +280,37 @@ function renderPortfolioView(){ //render trading functions, portfolio view
     body: JSON.stringify({username: username})
   })
   .then(resp=>resp.json())
-  .then(json=>console.log(json))
+  .then(json=>createPositionTable(json))
+}
+
+function createPositionTable(array){
+  console.log('position table being created')
+  let div=document.querySelector('#portfolio-positions')
+  div.innerText+="Portfolio Positions"
+  let table=document.createElement('table')
+  table.innerHTML+=`
+    <tr>
+      <th>Ticker</th>
+      <th>Size</th>
+      <th>Cost</th>
+      <th>Value</th>
+      <th>Unrealized Profit</th>
+      <th>Realized Profit</th>
+    </tr>
+  `
+  array.forEach(pos=>{
+    table.innerHTML+=`
+      <tr>
+        <td>${pos.stock.ticker}</td>
+        <td>${pos.size}</td>
+        <td>${pos.cost}</td>
+        <td>${pos.value}</td>
+        <td>${pos.unrealized}</td>
+        <td>${pos.realized}</td>
+      </tr>
+    `
+  })
+  div.appendChild(table)
 }
 
 let modal = document.querySelector(".modal")
