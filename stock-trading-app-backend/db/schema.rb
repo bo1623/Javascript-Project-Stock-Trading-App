@@ -13,13 +13,13 @@
 ActiveRecord::Schema.define(version: 2019_09_03_102852) do
 
   create_table "positions", force: :cascade do |t|
-    t.integer "size"
+    t.integer "size", default: 0
     t.integer "stock_id"
     t.integer "user_id"
-    t.decimal "cost"
-    t.decimal "value"
-    t.decimal "realized"
-    t.decimal "unrealized"
+    t.decimal "cost", default: "0.0"
+    t.decimal "value", default: "0.0"
+    t.decimal "realized", default: "0.0"
+    t.decimal "unrealized", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["stock_id"], name: "index_positions_on_stock_id"
