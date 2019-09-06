@@ -107,10 +107,12 @@ function updateRealTimePrice(price){ //to be initiated once ticker is submitted
 }
 
 function updateUnrealized(price){
-  let ticker=document.querySelector('.modal-content h3').innerText.split(' ')[1]
-  let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
-  let update=new Position(username,ticker,price)
-  update.postUpdatedPrice()
+  if (!!document.getElementById('logout-button')){ //determine if user is logged in
+    let ticker=document.getElementById('ticker').value
+    let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
+    let update=new Position(username,ticker,price)
+    update.postUpdatedPrice()
+  }
 }
 
 async function getLongAPI(ticker){
@@ -341,7 +343,7 @@ class Position{//to be used in updateRealTimePrice
       body: JSON.stringify(this)
     })
     .then(resp=>resp.json()) //retrieving the render json at the end of show
-    .then(json=>console.log(json))
+    .then(json=>console.log(json)) //now just need to replace this with a function to update unrealized profit on the DOM
   }
 }
 

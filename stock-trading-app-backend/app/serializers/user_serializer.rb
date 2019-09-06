@@ -10,6 +10,9 @@ class UserSerializer
       include: {
         trades:{
           only: [:stock_id,:user_id,:price,:direction,:quantity]
+        },
+        positions:{
+          only: [:size,:stock_id,:user_id,:cost,:value,:realized,:unrealized]
         }
       }
     }
