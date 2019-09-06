@@ -10,6 +10,7 @@ class TradesController < ApplicationController
     stock=Stock.find_or_create_by(ticker: params[:ticker])
     trade = Trade.create(stock_id: stock.id,user_id:user.id,price:params[:price],direction:params[:direction],quantity:params[:quantity])
     position=Position.find_or_create_by(user_id: user.id,stock_id: stock.id)
+    position.update_position(price:params[:price].to_f,direction:params[:direction],quantity:params[:quantity].to_i)
     render json: TradeSerializer.new(trade).to_serialized_json
   end
 
