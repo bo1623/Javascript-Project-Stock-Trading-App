@@ -365,12 +365,23 @@ class Trade{
       body: JSON.stringify(this) //use .then over here to update table contents and render new trade onto DOM
     })
     .then(resp=>resp.json())
-    .then(json=>console.log(json))
+    .then(json=>newTradeUpdateTable(json))
   }
 }
 
 function newTradeUpdateTable(position){
-  
+  console.log('updating table after trade submitted')
+  let ticker=position.stock.ticker
+  let size=document.getElementById(`${ticker}-size`)
+  let cost=document.getElementById(`${ticker}-cost`)
+  let value=document.getElementById(`${ticker}-value`)
+  let unrealized=document.getElementById(`${ticker}-unrealized-profit`)
+  let realized=document.getElementById(`${ticker}-realized`)
+  size.innerText=position.size
+  cost.innerText=position.cost
+  value.innerText=position.value
+  unrealized.innerText=position.unrealized
+  realized.innerText=position.realized
 }
 
 class Position{//to be used in updateRealTimePrice
