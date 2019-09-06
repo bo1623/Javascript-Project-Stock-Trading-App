@@ -59,3 +59,10 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+table  {
+   width: 70%;
+   padding-left: 2px;
+   padding-right: 2px;
+   text-align: center;
+}

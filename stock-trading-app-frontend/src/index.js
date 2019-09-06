@@ -286,7 +286,7 @@ function renderPortfolioView(){ //render trading functions, portfolio view
 function createPositionTable(array){
   console.log('position table being created')
   let div=document.querySelector('#portfolio-positions')
-  div.innerText+="Portfolio Positions"
+  div.innerHTML+="<h3>Portfolio Positions</h3>"
   let table=document.createElement('table')
   table.innerHTML+=`
     <tr>
