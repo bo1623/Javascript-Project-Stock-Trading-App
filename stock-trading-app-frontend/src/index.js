@@ -303,10 +303,10 @@ function createPositionTable(array){
       <tr id=${pos.stock.ticker}-position-details>
         <td>${pos.stock.ticker}</td>
         <td id="${pos.stock.ticker}-size">${pos.size}</td>
-        <td id="${pos.stock.ticker}-cost">${pos.cost}</td>
-        <td id="${pos.stock.ticker}-value">${pos.value}</td>
-        <td id="${pos.stock.ticker}-unrealized-profit">${pos.unrealized}</td>
-        <td id="${pos.stock.ticker}-realized">${pos.realized}</td>
+        <td id="${pos.stock.ticker}-cost">${Number(pos.cost).toFixed(2)}</td>
+        <td id="${pos.stock.ticker}-value">${Number(pos.value).toFixed(2)}</td>
+        <td id="${pos.stock.ticker}-unrealized-profit">${Number(pos.unrealized).toFixed(2)}</td>
+        <td id="${pos.stock.ticker}-realized">${Number(pos.realized).toFixed(2)}</td>
       </tr>
     `
   })
@@ -378,10 +378,10 @@ function newTradeUpdateTable(position){
   let unrealized=document.getElementById(`${ticker}-unrealized-profit`)
   let realized=document.getElementById(`${ticker}-realized`)
   size.innerText=position.size
-  cost.innerText=position.cost
-  value.innerText=position.value
-  unrealized.innerText=position.unrealized
-  realized.innerText=position.realized
+  cost.innerText=Number(position.cost).toFixed(2)
+  value.innerText=Number(position.value).toFixed(2)
+  unrealized.innerText=Number(position.unrealized).toFixed(2)
+  realized.innerText=Number(position.realized).toFixed(2)
 }
 
 class Position{//to be used in updateRealTimePrice
