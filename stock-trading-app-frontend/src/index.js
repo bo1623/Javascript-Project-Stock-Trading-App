@@ -372,16 +372,30 @@ class Trade{
 function newTradeUpdateTable(position){
   console.log('updating table after trade submitted')
   let ticker=position.stock.ticker
-  let size=document.getElementById(`${ticker}-size`)
-  let cost=document.getElementById(`${ticker}-cost`)
-  let value=document.getElementById(`${ticker}-value`)
-  let unrealized=document.getElementById(`${ticker}-unrealized-profit`)
-  let realized=document.getElementById(`${ticker}-realized`)
-  size.innerText=position.size
-  cost.innerText=Number(position.cost).toFixed(2)
-  value.innerText=Number(position.value).toFixed(2)
-  unrealized.innerText=Number(position.unrealized).toFixed(2)
-  realized.innerText=Number(position.realized).toFixed(2)
+  if(!!document.getElementById(`${ticker}-size`)){
+    let size=document.getElementById(`${ticker}-size`)
+    let cost=document.getElementById(`${ticker}-cost`)
+    let value=document.getElementById(`${ticker}-value`)
+    let unrealized=document.getElementById(`${ticker}-unrealized-profit`)
+    let realized=document.getElementById(`${ticker}-realized`)
+    size.innerText=position.size
+    cost.innerText=Number(position.cost).toFixed(2)
+    value.innerText=Number(position.value).toFixed(2)
+    unrealized.innerText=Number(position.unrealized).toFixed(2)
+    realized.innerText=Number(position.realized).toFixed(2)
+  }else{
+    let table=document.querySelector('table')
+    table.innerHTML+=`
+      <tr id=${ticker}-position-details>
+        <td>${ticker}</td>
+        <td id="${ticker}-size">${position.size}</td>
+        <td id="${ticker}-cost">${Number(position.cost).toFixed(2)}</td>
+        <td id="${ticker}-value">${Number(position.value).toFixed(2)}</td>
+        <td id="${ticker}-unrealized-profit">${Number(position.unrealized).toFixed(2)}</td>
+        <td id="${ticker}-realized">${Number(position.realized).toFixed(2)}</td>
+      </tr>
+    `
+  }
 }
 
 class Position{//to be used in updateRealTimePrice
