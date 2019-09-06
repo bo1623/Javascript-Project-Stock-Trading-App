@@ -17,4 +17,11 @@ class PositionsController < ApplicationController
     render json: PositionSerializer.new(position).to_serialized_json
   end
 
+  # def tradeUpdate
+  #   user=User.find(params[:user_id])
+  #   stock=Stock.find(params[:stock_id])
+  #   position=Position.find_by(stock_id: stock.id, user_id: user.id)
+  #
+  # end
+
 end

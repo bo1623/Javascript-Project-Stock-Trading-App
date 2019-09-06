@@ -47,7 +47,7 @@ function getPrices(prices){
 
 
 var cnt = 0 //to be used in addNewPrices(), which is called in updateChart()
-const MarketOpen = '033000'
+const MarketOpen = '093000'
 const MarketClose = '160000'
 
 
@@ -302,11 +302,11 @@ function createPositionTable(array){
     table.innerHTML+=`
       <tr id=${pos.stock.ticker}-position-details>
         <td>${pos.stock.ticker}</td>
-        <td>${pos.size}</td>
-        <td>${pos.cost}</td>
-        <td>${pos.value}</td>
+        <td id="${pos.stock.ticker}-size">${pos.size}</td>
+        <td id="${pos.stock.ticker}-cost">${pos.cost}</td>
+        <td id="${pos.stock.ticker}-value">${pos.value}</td>
         <td id="${pos.stock.ticker}-unrealized-profit">${pos.unrealized}</td>
-        <td>${pos.realized}</td>
+        <td id="${pos.stock.ticker}-realized">${pos.realized}</td>
       </tr>
     `
   })
@@ -362,9 +362,15 @@ class Trade{
         "Content-Type":"application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify(this)
+      body: JSON.stringify(this) //use .then over here to update table contents and render new trade onto DOM
     })
+    .then(resp=>resp.json())
+    .then(json=>console.log(json))
   }
+}
+
+function newTradeUpdateTable(position){
+  
 }
 
 class Position{//to be used in updateRealTimePrice
