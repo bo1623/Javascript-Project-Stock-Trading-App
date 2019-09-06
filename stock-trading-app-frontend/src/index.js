@@ -47,7 +47,7 @@ function getPrices(prices){
 
 
 var cnt = 0 //to be used in addNewPrices(), which is called in updateChart()
-const MarketOpen = '093000'
+const MarketOpen = '033000'
 const MarketClose = '160000'
 
 
@@ -305,7 +305,7 @@ function createPositionTable(array){
         <td>${pos.size}</td>
         <td>${pos.cost}</td>
         <td>${pos.value}</td>
-        <td>${pos.unrealized}</td>
+        <td id="${pos.stock.ticker}-unrealized-profit">${pos.unrealized}</td>
         <td>${pos.realized}</td>
       </tr>
     `
@@ -384,8 +384,15 @@ class Position{//to be used in updateRealTimePrice
       body: JSON.stringify(this)
     })
     .then(resp=>resp.json()) //retrieving the render json at the end of show
-    .then(json=>console.log(json)) //now just need to replace this with a function to update unrealized profit on the DOM
+    .then(json=>updateUnrealizedInTable(json)) //now just need to replace this with a function to update unrealized profit on the DOM
   }
+}
+
+function updateUnrealizedInTable(position){
+  console.log('updating unrealized profit in table')
+  let ticker=position.stock.ticker
+  let row=document.querySelector(`#${ticker}-unrealized-profit`)
+  row.innerText=position.unrealized
 }
 
 document.getElementsByClassName('modal-content')[0].addEventListener('submit',function(event){

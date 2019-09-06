@@ -6,7 +6,6 @@ class PositionsController < ApplicationController
   def create #to receive fetch post request from renderPortfolioView() in index.js
     user=User.find_by(username: params[:username]) #imagine getting a fetch request from JS with username as the params
     positions=user.positions
-    puts positions
     render json: PositionSerializer.new(positions).to_serialized_json
   end
 
