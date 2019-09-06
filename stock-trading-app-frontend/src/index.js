@@ -266,10 +266,21 @@ function addLogoutButton(){
 }
 
 function renderPortfolioView(){ //render trading functions, portfolio view
+  let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
   let elem=document.getElementById('buy-sell-btns')
   elem.innerHTML+=`<button id='buy-btn' class='buy-sell'>Buy</button>
   <button id='sell-btn' class='buy-sell'>Sell</button>
   `
+  fetch("http://localhost:3000/positions",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({username: username})
+  })
+  .then(resp=>resp.json())
+  .then(json=>console.log(json))
 }
 
 let modal = document.querySelector(".modal")
