@@ -332,7 +332,7 @@ class Position{//to be used in updateRealTimePrice
   }
 
   postUpdatedPrice(){
-    fetch("http://localhost:3000/position",{
+    fetch("http://localhost:3000/positions/update",{
       method:'POST',
       headers: {
         "Content-Type":"application/json",
@@ -341,6 +341,7 @@ class Position{//to be used in updateRealTimePrice
       body: JSON.stringify(this)
     })
     .then(resp=>resp.json()) //retrieving the render json at the end of show
+    .then(json=>console.log(json))
   }
 }
 
