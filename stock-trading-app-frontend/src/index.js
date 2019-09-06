@@ -300,7 +300,7 @@ function createPositionTable(array){
   `
   array.forEach(pos=>{
     table.innerHTML+=`
-      <tr>
+      <tr id=${pos.stock.ticker}-position-details>
         <td>${pos.stock.ticker}</td>
         <td>${pos.size}</td>
         <td>${pos.cost}</td>
