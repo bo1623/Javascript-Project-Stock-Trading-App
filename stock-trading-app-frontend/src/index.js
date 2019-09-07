@@ -289,12 +289,12 @@ function fetchLatestPrices(positionArray){
   positionArray.forEach(pos=>{
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${pos.stock.ticker}&apikey=ZREIW6HJ1LEBYBQT`)
     .then(resp=>resp.json())
-    .then(json=>console.log(json["Global Quote"]["05. price"]))
+    .then(json=>updatePricesInBackend(username,pos.stock.ticker,json["Global Quote"]["05. price"]))
   })
   return positionArray
 }
 
-function updatePricesInBackend(username,ticker,price){
+function updatePricesInBackend(username,ticker,price){ //used in the fetchLatestPrices() above
   let position= new Position(username,ticker,price)
   position.updatePositionPrice()
 }
