@@ -280,10 +280,27 @@ function renderPortfolioView(){ //render trading functions, portfolio view
     body: JSON.stringify({username: username})
   })
   .then(resp=>resp.json())
+  .then(positionArray=>fetchLatestPrices(positionArray))
   .then(json=>createPositionTable(json))
 }
 
+function fetchLatestPrices(positionArray){
+  let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
+  positionArray.forEach(pos=>{
+    fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${pos.stock.ticker}&apikey=ZREIW6HJ1LEBYBQT`)
+    .then(resp=>resp.json())
+    .then(json=>console.log(json["Global Quote"]["05. price"]))
+  })
+  return positionArray
+}
+
+function updatePricesInBackend(username,ticker,price){
+  let position= new Position(username,ticker,price)
+  position.updatePositionPrice()
+}
+
 function createPositionTable(array){
+  console.log(array)
   console.log('position table being created')
   let div=document.querySelector('#portfolio-positions')
   div.innerHTML+="<h3>Portfolio Positions</h3>"
@@ -416,6 +433,17 @@ class Position{//to be used in updateRealTimePrice
     })
     .then(resp=>resp.json()) //retrieving the render json at the end of show
     .then(json=>updateUnrealizedAndValueInTable(json)) //now just need to replace this with a function to update unrealized profit on the DOM
+  }
+
+  updatePositionPrice(){ //just for updating the price and value in the backend but not rendering anything new on the HTML
+    fetch("http://localhost:3000/positions/update",{
+      method:'POST',
+      headers: {
+        "Content-Type":"application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(this)
+    })
   }
 }
 
