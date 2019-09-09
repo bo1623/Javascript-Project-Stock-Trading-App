@@ -250,7 +250,14 @@ class User{
       },
       body: JSON.stringify(this)
     })
+    .then(resp=>resp.json())
+    .then(user=>displayCashBalance(user))
   }
+}
+
+function displayCashBalance(user){
+  let div=document.getElementById('cash-balance')
+  div.innerText=`Cash Balance: ${user['cash_balance']}`
 }
 
 
@@ -341,9 +348,6 @@ function createPositionTable(array){
   div.appendChild(table)
 }
 
-function renderCashBalance(){
-
-}
 
 //CREATING MODAL
 
