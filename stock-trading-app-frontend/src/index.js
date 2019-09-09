@@ -155,8 +155,18 @@ document.getElementById('insert-ticker').addEventListener('submit',function(even
   getLongAPI(ticker)
   setDivTicker(ticker) //adding ticker attribute to the chart div
   displayButtons() //create toggle buttons for 5m and intraday prices
+  if (!!document.getElementById('logout-button')){
+    addBuySellBtns()
+  }
   event.preventDefault()
 })
+
+function addBuySellBtns(){
+  let elem=document.getElementById('buy-sell-btns')
+  elem.innerHTML+=`<button id='buy-btn' class='buy-sell'>Buy</button>
+  <button id='sell-btn' class='buy-sell'>Sell</button>
+  `
+}
 
 function setDivTicker(ticker){
   let chartDiv=document.querySelector('#chart')
@@ -267,10 +277,9 @@ function addLogoutButton(){
 
 function renderPortfolioView(){ //render trading functions, portfolio view
   let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
-  let elem=document.getElementById('buy-sell-btns')
-  elem.innerHTML+=`<button id='buy-btn' class='buy-sell'>Buy</button>
-  <button id='sell-btn' class='buy-sell'>Sell</button>
-  `
+  if (!!document.getElementById('ticker').value){
+    addBuySellBtns()
+  }
   fetch("http://localhost:3000/positions",{
     method:"POST",
     headers:{
@@ -284,14 +293,14 @@ function renderPortfolioView(){ //render trading functions, portfolio view
   .then(json=>createPositionTable(json))
 }
 
-function fetchLatestPrices(positionArray){
+function fetchLatestPrices(positionArray){ //note: there is a limit of 5 requests per minute where one request has to be sent per stock
   let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
   positionArray.forEach(pos=>{
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${pos.stock.ticker}&apikey=ZREIW6HJ1LEBYBQT`)
     .then(resp=>resp.json())
     .then(json=>updatePricesInBackend(username,pos.stock.ticker,json["Global Quote"]["05. price"]))
   })
-  return positionArray
+  return positionArray //return in the end to be used by createPositionTable() in the next .then
 }
 
 function updatePricesInBackend(username,ticker,price){ //used in the fetchLatestPrices() above
