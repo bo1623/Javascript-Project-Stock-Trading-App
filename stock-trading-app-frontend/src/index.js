@@ -162,10 +162,12 @@ document.getElementById('insert-ticker').addEventListener('submit',function(even
 })
 
 function addBuySellBtns(){
-  let elem=document.getElementById('buy-sell-btns')
-  elem.innerHTML+=`<button id='buy-btn' class='buy-sell'>Buy</button>
-  <button id='sell-btn' class='buy-sell'>Sell</button>
-  `
+  if (!document.getElementById('buy-btn')){ //if buttons already exist then we need not add them again
+    let elem=document.getElementById('buy-sell-btns')
+    elem.innerHTML+=`<button id='buy-btn' class='buy-sell'>Buy</button>
+    <button id='sell-btn' class='buy-sell'>Sell</button>
+    `
+  }
 }
 
 function setDivTicker(ticker){
@@ -338,6 +340,12 @@ function createPositionTable(array){
   })
   div.appendChild(table)
 }
+
+function renderCashBalance(){
+
+}
+
+//CREATING MODAL
 
 let modal = document.querySelector(".modal")
 let closeBtn = document.querySelector(".close-btn")
