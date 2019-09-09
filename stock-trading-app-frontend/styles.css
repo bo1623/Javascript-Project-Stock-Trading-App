@@ -87,3 +87,8 @@ table  {
    padding-right: 2px;
    text-align: center;
 }
+
+#cash {
+  display: inline-block;
+  float:left;
+}
