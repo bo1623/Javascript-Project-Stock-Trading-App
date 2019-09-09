@@ -279,15 +279,53 @@ function cashTransferForm(direction){
   cashModal.style.display="block"
   let content=document.querySelector('.cash-modal-content')
   content.innerHTML=`
-  <form action="#" method="POST" id="cash-transfer-form">
+  <form action="#" method="POST" class="cash-transfer-form" id="${direction.toLowerCase()}-cash">
     <label for="transfer-amount">${direction} Amount (USD): </label>
     <input name="transfer-amount" type="number" id="transfer-amount">
     <input type="submit" value="Submit">
   </form>
   `
+  addListenerToTransferForm()
 }
 
-//add eventlisteners to render deposit and withdraw forms accordingly
+function addListenerToTransferForm(){
+  document.querySelector('.cash-transfer-form').addEventListener('submit',function(event){
+    let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
+    if(event.target.id==="deposit-cash"){
+      let transfer= new Transfer(username,"deposit",document.getElementById('transfer-amount').value)
+      transfer.postTransfer()
+    }else if(event.target.id=="withdraw-cash"){
+      let transfer= new Transfer(username,"deposit",document.getElementById('transfer-amount').value)
+      transfer.postTransfer()
+    }
+    event.preventDefault()
+  })
+}
+
+class Transfer{
+  constructor(username,direction,amount){
+    this.username=username
+    this.direction=direction
+    this.amount=amount
+  }
+
+  postTransfer(){
+    fetch("http://localhost:3000/users/update",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(this)
+    })
+    //.then(reflect new cash balance)
+  }
+}
+
+function updateCashInDOM(user_json){
+  let div=document.getElementById('cash-balance')
+  div.innerText=`Cash Balance: ${user_json.cash_balance}`
+}
 
 
 displayLogin()

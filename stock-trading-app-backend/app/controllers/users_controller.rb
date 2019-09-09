@@ -15,4 +15,12 @@ class UsersController < ApplicationController
     render json: UserSerializer.new(user).to_serialized_json
   end
 
+  def update_cash
+    user=User.find_or_create_by(username: params[:username])
+    multiplier = params[:direction]=="deposit" ? 1 : -1
+    user.cash_balance+=multiplier*params[:amount].to_f
+    user.save
+    render json: UserSerializer.new(user).to_serialized_json
+  end
+
 end
