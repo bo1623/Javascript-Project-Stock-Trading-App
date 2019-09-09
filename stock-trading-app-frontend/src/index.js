@@ -294,10 +294,11 @@ function addListenerToTransferForm(){
     if(event.target.id==="deposit-cash"){
       let transfer= new Transfer(username,"deposit",document.getElementById('transfer-amount').value)
       transfer.postTransfer()
-    }else if(event.target.id=="withdraw-cash"){
-      let transfer= new Transfer(username,"deposit",document.getElementById('transfer-amount').value)
+    }else if(event.target.id=="withdrawal-cash"){
+      let transfer= new Transfer(username,"withdraw",document.getElementById('transfer-amount').value)
       transfer.postTransfer()
     }
+    cashModal.style.display="none"
     event.preventDefault()
   })
 }
