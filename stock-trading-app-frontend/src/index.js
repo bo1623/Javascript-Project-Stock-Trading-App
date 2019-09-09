@@ -572,5 +572,6 @@ document.getElementsByClassName('modal-content')[0].addEventListener('submit',fu
   let quantity=document.getElementById('number-of-shares').value
   let trade=new Trade(ticker,username,tradePrice,direction,quantity)
   trade.postTrade()
+  modal.style.display="none"
   event.preventDefault()
 })
