@@ -3,10 +3,12 @@ class Position < ApplicationRecord
   belongs_to :user
 
   def update_position(quantity: ,direction: ,price:)
+    user=self.user
     if direction=="Buy"
       self.size+=quantity
       self.cost=(self.value+quantity*price)
       self.value=self.size*price
+      user.cash_balance-=quantity*price
     elsif direction=="Sell"
       avg_cost=self.cost/self.size
       self.size-=quantity
@@ -14,8 +16,10 @@ class Position < ApplicationRecord
       self.unrealized=(self.size)*(price-avg_cost)
       self.cost=avg_cost*(self.size)
       self.realized+=quantity*(price-avg_cost)
+      user.cash_balance+=quantity*price
     end
     self.save
+    user.save
   end
 
   def update_unrealized(price:)

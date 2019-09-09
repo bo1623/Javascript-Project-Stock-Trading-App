@@ -488,6 +488,7 @@ class Trade{
     })
     .then(resp=>resp.json())
     .then(json=>newTradeUpdateTable(json))
+    .then(userjson=>updateCashInDOM(userjson))
   }
 }
 
@@ -518,6 +519,7 @@ function newTradeUpdateTable(position){
       </tr>
     `
   }
+  return position.user //to be used in updateCashInDOM()
 }
 
 class Position{//to be used in updateRealTimePrice

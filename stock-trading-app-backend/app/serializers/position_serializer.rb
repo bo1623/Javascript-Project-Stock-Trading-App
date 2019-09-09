@@ -12,7 +12,7 @@ class PositionSerializer
           only: [:ticker]
         },
         user:{
-          only: [:username]
+          only: [:username,:cash_balance]
         }
       }
     }
