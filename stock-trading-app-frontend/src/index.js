@@ -264,6 +264,31 @@ function displayCashBalance(user){
   `
 }
 
+let cashModal = document.querySelector(".cash-modal")
+document.addEventListener('click',function(event){
+  if (event.target.id==='deposit-cash'){
+    //function to render deposit form
+    cashTransferForm("Deposit")
+  }else if(event.target.id==='withdraw-cash'){
+    //function to render withdraw form
+    cashTransferForm("Withdrawal")
+  }
+})
+
+function cashTransferForm(direction){
+  cashModal.style.display="block"
+  let content=document.querySelector('.cash-modal-content')
+  content.innerHTML=`
+  <form action="#" method="POST" id="cash-transfer-form">
+    <label for="transfer-amount">${direction} Amount (USD): </label>
+    <input name="transfer-amount" type="number" id="transfer-amount">
+    <input type="submit" value="Submit">
+  </form>
+  `
+}
+
+//add eventlisteners to render deposit and withdraw forms accordingly
+
 
 displayLogin()
 document.getElementById('login').addEventListener('submit',function(event){
@@ -370,9 +395,24 @@ document.getElementById('buy-sell-btns').addEventListener('click',function(event
   }
 })
 
-closeBtn.onclick = function() {
-  modal.style.display = "none";
+let closeBtns=document.getElementsByClassName('close-btn')
+for (let i=0; i<closeBtns.length;i++){
+  closeBtns[i].addEventListener('click',function(){
+    modal.style.display="none"
+    cashModal.style.display="none"
+  })
 }
+//
+// closeBtns.forEach(btn=>{
+//   btn.addEventListener('click',function(){
+//     modal.style.display="none"
+//     cashModal.style.display="none"
+//   })
+// })
+
+// closeBtn.onclick = function() {
+//   modal.style.display = "none";
+// }
 
 function addStockTradeForm(direction){
   let ticker=document.getElementById('ticker').value
