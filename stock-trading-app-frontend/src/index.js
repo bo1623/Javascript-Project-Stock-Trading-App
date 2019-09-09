@@ -318,13 +318,14 @@ class Transfer{
       },
       body: JSON.stringify(this)
     })
-    //.then(reflect new cash balance)
+    .then(resp=>resp.json())
+    .then(json=>updateCashInDOM(json)) //reflect new cash balance in DOM
   }
 }
 
 function updateCashInDOM(user_json){
   let div=document.getElementById('cash-balance')
-  div.innerText=`Cash Balance: ${user_json.cash_balance}`
+  div.innerText=`Cash Balance: ${Number(user_json.cash_balance).toFixed(2)}`
 }
 
 
