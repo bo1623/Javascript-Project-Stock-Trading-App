@@ -605,3 +605,27 @@ function updatePieChart(){ //fetches json of all existing positions and creates 
   .then(resp=>resp.json())
   .then(json=>createPieChart(json))
 }
+
+//Creating news sidebar
+function topNews(){
+  let url = 'https://newsapi.org/v2/top-headlines?' +
+          'country=us&' +
+          'apiKey=93db96180ea548c082a15c7b1a985770';
+  let req = new Request(url);
+  fetch(url)
+  .then(resp=>resp.json())
+  .then(json=>addArticlesToNewsbar(json["articles"]))
+}
+
+function addArticlesToNewsbar(array){
+  let bar=document.getElementById('newsbar')
+  array.forEach(article=>{
+    bar.innerHTML+=`
+      <a href="${article.url}">${article.title}</a>
+      <div class="article-des">${article.description}</div>
+      <div class="published-time">${article.publishedAt}</div>
+    `
+  })
+}
+
+topNews()
