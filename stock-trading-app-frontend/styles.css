@@ -82,13 +82,22 @@
 }
 
 table  {
-   width: 50%;
+   width: 65%;
    padding-left: 2px;
    padding-right: 2px;
    text-align: center;
+}
+
+#chart {
+  width: 70%;
 }
 
 #cash {
   display: inline-block;
   float:left;
 }
+
+/* #portfolio-details {
+  display: inline-block;
+  float:left;
+} */

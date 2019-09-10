@@ -395,6 +395,7 @@ function createPositionTable(array){ //array of position objects
   table.innerHTML+=`
     <tr>
       <th>Ticker</th>
+      <th>Latest Price</th>
       <th>Size</th>
       <th>Cost</th>
       <th>Value</th>
@@ -406,6 +407,7 @@ function createPositionTable(array){ //array of position objects
     table.innerHTML+=`
       <tr id=${pos.stock.ticker}-position-details>
         <td>${pos.stock.ticker}</td>
+        <td id="${pos.stock.ticker}-price">${Number(pos.value/pos.size).toFixed(2)}</td>
         <td id="${pos.stock.ticker}-size">${pos.size}</td>
         <td id="${pos.stock.ticker}-cost">${Number(pos.cost).toFixed(2)}</td>
         <td id="${pos.stock.ticker}-value">${Number(pos.value).toFixed(2)}</td>
@@ -517,11 +519,13 @@ function newTradeUpdateTable(position){
   console.log('updating table after trade submitted')
   let ticker=position.stock.ticker
   if(!!document.getElementById(`${ticker}-size`)){
+    let latest_price=document.getElementById(`${ticker}-price`)
     let size=document.getElementById(`${ticker}-size`)
     let cost=document.getElementById(`${ticker}-cost`)
     let value=document.getElementById(`${ticker}-value`)
     let unrealized=document.getElementById(`${ticker}-unrealized-profit`)
     let realized=document.getElementById(`${ticker}-realized`)
+    latest_price.innerText=Number(position.value/position.size).toFixed(2)
     size.innerText=position.size
     cost.innerText=Number(position.cost).toFixed(2)
     value.innerText=Number(position.value).toFixed(2)
@@ -532,6 +536,7 @@ function newTradeUpdateTable(position){
     table.innerHTML+=`
       <tr id=${ticker}-position-details>
         <td>${ticker}</td>
+        <td id="${ticker}-price">${Number(position.value/position.size).toFixed(2)}</td>
         <td id="${ticker}-size">${position.size}</td>
         <td id="${ticker}-cost">${Number(position.cost).toFixed(2)}</td>
         <td id="${ticker}-value">${Number(position.value).toFixed(2)}</td>

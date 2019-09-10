@@ -9,7 +9,7 @@ class PositionSerializer
     options={
       include:{
         stock:{
-          only: [:ticker]
+          only: [:ticker,:latest_price]
         },
         user:{
           only: [:username,:cash_balance]
