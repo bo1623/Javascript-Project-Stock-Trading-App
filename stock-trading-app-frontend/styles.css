@@ -132,11 +132,24 @@ h2 {
 #newsbar {
 	display: table-cell;
 	width: 30%;
+  overflow-y: scroll; /*makes sidebar scrollable*/
 	vertical-align: top;
+  top:0; /*makes sidebar scrollable*/
+  bottom:0; /*makes sidebar scrollable*/
+  position:fixed; /*makes sidebar scrollable*/
 }
 
 #content {
 	display: table-cell;
 	width: 70%;
 	vertical-align: top;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
 }
