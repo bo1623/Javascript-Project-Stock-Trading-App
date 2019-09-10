@@ -386,7 +386,7 @@ function updatePricesInBackend(username,ticker,price){ //used in the fetchLatest
   position.updatePositionPrice()
 }
 
-function createPositionTable(array){
+function createPositionTable(array){ //array of position objects
   console.log(array)
   console.log('position table being created')
   let div=document.querySelector('#portfolio-positions')
@@ -415,8 +415,28 @@ function createPositionTable(array){
     `
   })
   div.appendChild(table)
+  createPieChart(array)
 }
 
+function createPieChart(array){ //array of position objects
+  let tickers=array.map(pos=>pos.stock.ticker)
+  let values=array.map(pos=>Number(pos.value))
+  console.log(values)
+  console.log(tickers)
+  let data = [{
+    values: values,
+    labels: tickers,
+    type: 'pie'
+  }];
+
+  let layout = {
+    height: 400,
+    width: 500
+  };
+
+  Plotly.newPlot('pie-chart', data, layout);
+
+}
 
 //CREATING MODAL
 
