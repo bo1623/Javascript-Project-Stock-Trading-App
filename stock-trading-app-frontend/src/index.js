@@ -334,7 +334,7 @@ document.getElementById('login').addEventListener('submit',function(event){
   let username=document.getElementById('username').value
   let user=new User(username)
   user.postUser() //creating or finding user in the backend
-  this.parentElement.innerHTML+=`<label id="logged-in-user">Account: ${username}</label>`
+  this.parentElement.innerHTML+=`<label id="logged-in-user">Account: ${username}   </label>`
   removeLoginForm()
   addLogoutButton()
   renderPortfolioView()
