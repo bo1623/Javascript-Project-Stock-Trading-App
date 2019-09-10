@@ -509,6 +509,7 @@ class Trade{
     .then(resp=>resp.json())
     .then(json=>newTradeUpdateTable(json))
     .then(userjson=>updateCashInDOM(userjson))
+    .then(updatePieChart)
   }
 }
 
@@ -595,3 +596,9 @@ document.getElementsByClassName('modal-content')[0].addEventListener('submit',fu
   modal.style.display="none"
   event.preventDefault()
 })
+
+function updatePieChart(){ //fetches json of all existing positions and creates new pie chart with them
+  fetch("http://localhost:3000/positions")
+  .then(resp=>resp.json())
+  .then(json=>createPieChart(json))
+}

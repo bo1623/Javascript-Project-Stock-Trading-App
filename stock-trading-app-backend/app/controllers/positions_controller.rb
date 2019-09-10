@@ -1,6 +1,7 @@
 class PositionsController < ApplicationController
   def index
-
+    positions=Position.all
+    render json: PositionSerializer.new(positions).to_serialized_json
   end
 
   def create #to receive fetch post request from renderPortfolioView() in index.js
