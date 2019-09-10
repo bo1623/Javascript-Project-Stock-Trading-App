@@ -97,7 +97,28 @@ table  {
   float:left;
 }
 
-/* #portfolio-details {
-  display: inline-block;
-  float:left;
-} */
+.header {
+  display:flex;
+  justify-content: space-between;
+  width: 100%;
+  overflow: hidden;
+}
+
+.logo {
+  padding: 10px 20px;
+  margin: auto 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+.nav-items {
+  display:flex;
+  justify-content: space-around;
+  margin: 10px 20px;
+}
+
+.nav {
+  margin: auto 30px;
+}

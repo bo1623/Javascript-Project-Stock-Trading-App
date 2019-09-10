@@ -6,12 +6,23 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div class="wrapper">
-      <form id="insert-ticker" action="#" method="post">
-        <label for="ticker">Ticker: </label>
-        <input id="ticker" name="ticker" placeholder="Insert Ticker">
-        <input type="submit" value="Submit">
-      </form>
+    <div class="header">
+      <div class="logo">
+        <h2>TradingApp</h2>
+      </div>
+      <div class="nav-items">
+        <div class="nav" id="ticker-form">
+          <form id="insert-ticker" action="#" method="post">
+            <label for="ticker">Ticker: </label>
+            <input id="ticker" name="ticker" placeholder="Insert Ticker">
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+        <div class="nav" id="user-login">
+        </div>
+      </div>
+    </div>
+    <div class="stock-info">
       <div id="real-time-price"></div>
       <div id="chart"></div>
     </div>

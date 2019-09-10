@@ -215,15 +215,13 @@ function modNumber(num){
 //login function
 function displayLogin(){
   if (!document.getElementById('login')){
-    document.getElementById('insert-ticker').insertAdjacentHTML('afterEnd',`
-    <div id="user-login">
+    document.getElementById('user-login').innerHTML+=`
       <form id="login" action="http://localhost:3000/users" method="post">
         <label for="username">Username: </label>
         <input id="username" name="username">
         <input type="submit" value="Submit">
       </form>
-    </div>
-    `)
+    `
   }
 }
 
@@ -336,7 +334,7 @@ document.getElementById('login').addEventListener('submit',function(event){
   let username=document.getElementById('username').value
   let user=new User(username)
   user.postUser() //creating or finding user in the backend
-  this.parentElement.innerHTML+=`<div id="logged-in-user">Account: ${username}</div>`
+  this.parentElement.innerHTML+=`<label id="logged-in-user">Account: ${username}</label>`
   removeLoginForm()
   addLogoutButton()
   renderPortfolioView()
