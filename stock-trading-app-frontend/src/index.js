@@ -628,7 +628,7 @@ function addArticlesToNewsbar(array){
       <div class="articles">
         <a href="${article.url}">${article.title}</a>
         <div class="article-des">${article.description}</div>
-        <div class="published-time">${article.publishedAt}</div>
+        <div class="published-time">Published at: ${new Date(article.publishedAt)}</div>
         <br>
       </div>
     `

@@ -5,25 +5,44 @@
   color: white; /* White text */
   padding: 8px 20px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
-  float: left; /* Float the buttons side by side */
+  /* float: left; /* Float the buttons side by side */ */
 }
 
-#toggle-time button:not(:last-child) {
-  border-right: none; /* Prevent double borders */
-}
+/* #toggle-time button:not(:last-child) {
+  border-right: none; /* Prevent double borders
+}*/
 
 /* Clear floats (clearfix hack) */
-#toggle-time:after {
+/* #toggle-time:after {
   content: "";
   clear: both;
   display: table;
-}
+} */
 
 /* Add a background color on hover */
 #toggle-time button:hover {
   background-color: #0000cc;
 }
 
+
+#buy-sell-btns button{
+  background-color: #0000cc;
+  border: 1px solid blue; /* Green border */
+  color: white; /* White text */
+  padding: 8px 10px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  /* float: left; /* Float the buttons side by side */ */
+}
+
+.btn-group button{
+  float:left;
+  margin: 0 5px;
+  width: 23%;
+}
+
+#cash {
+  padding: 10px auto;
+}
 
 .modal {
   display: none; /* Hidden by default */
