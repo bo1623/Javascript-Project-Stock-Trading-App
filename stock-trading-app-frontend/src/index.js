@@ -619,14 +619,35 @@ function topNews(){
 
 function addArticlesToNewsbar(array){
   let bar=document.getElementById('newsbar')
+  let articles=document.getElementsByClassName('articles')
+  while(articles[0]){
+    articles[0].parentNode.removeChild(articles[0]);
+  }
   array.forEach(article=>{
     bar.innerHTML+=`
-      <a href="${article.url}">${article.title}</a>
-      <div class="article-des">${article.description}</div>
-      <div class="published-time">${article.publishedAt}</div>
-      <br>
+      <div class="articles">
+        <a href="${article.url}">${article.title}</a>
+        <div class="article-des">${article.description}</div>
+        <div class="published-time">${article.publishedAt}</div>
+        <br>
+      </div>
     `
   })
 }
 
 topNews()
+
+document.getElementById('newsbar').addEventListener('submit',function(event){
+  if(event.target.id==="topic-news"){
+    let topic=document.getElementById('topic').value
+    let url = 'https://newsapi.org/v2/everything?' +
+              `q=${topic}&` +
+              // 'from=2019-09-10&' + leave date as optional for now
+              'sortBy=popularity&' +
+              'apiKey=93db96180ea548c082a15c7b1a985770';
+    fetch(url)
+    .then(resp=>resp.json())
+    .then(json=>addArticlesToNewsbar(json["articles"]))
+  }
+  event.preventDefault()
+})
