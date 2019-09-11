@@ -173,3 +173,7 @@ body {
 	margin: 0;
 	height: 100%;
 }
+
+#user-login, #login, #insert-ticker{ /*so that input bars are aligned with the header*/
+  margin:auto;
+}

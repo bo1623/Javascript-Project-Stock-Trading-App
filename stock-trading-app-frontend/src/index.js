@@ -348,7 +348,7 @@ function removeLoginForm(){
 
 function addLogoutButton(){
   let elem=document.getElementById('user-login') //maybe place logout button elsewhere
-  elem.innerHTML+="<button id='logout-button'>Logout</button><br><br>"
+  elem.innerHTML+="<button id='logout-button'>Logout</button>"
 }
 
 function renderPortfolioView(){ //render trading functions, portfolio view
