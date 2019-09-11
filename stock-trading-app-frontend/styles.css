@@ -136,6 +136,8 @@ h2 {
   display:flex;
   justify-content: space-around;
   margin: 10px 20px;
+  color: rgb(255,71,19);
+  font-weight: bold
 }
 
 .nav {
@@ -172,8 +174,20 @@ html {
 body {
 	margin: 0;
 	height: 100%;
+  font-family: "Arial";
+  background-color: Black;
+  color: White;
 }
 
 #user-login, #login, #insert-ticker{ /*so that input bars are aligned with the header*/
   margin:auto;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(255,71,19)
+}
+
+h1, h2, h3 {
+  color: rgb(255,71,19)
 }

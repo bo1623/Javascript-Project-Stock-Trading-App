@@ -4,15 +4,25 @@ function plotData(prices,ticker){
       text:`${ticker}`,
       font: {
         // family: 'Courier New, monospace',
-        size: 24
+        size: 24,
+        color: 'rgb(255,255,255)'
       }
-    }
+    },
+    font:{
+      color: 'rgb(255,255,255)'
+    },
+    plot_bgcolor:"black",
+    paper_bgcolor:"#000000"
   }
   Plotly.newPlot('chart',[{
       x:[getTimes(prices)][0].reverse(),
       y:[getPrices(prices)][0].reverse(),
-      type:'scatter',
-      connectgaps: false,
+      mode:'lines',
+      line: {
+        color: 'rgb(255, 206, 0)',
+        width: 3
+      },
+      // connectgaps: false,
       transforms: [{
         type: 'filter',
         target: 'x',
@@ -439,9 +449,15 @@ function createPieChart(array){ //array of position objects
     title:{
       text:"Portfolio Composition",
       font:{
-        size: 24
+        size: 24,
+        color: 'rgb(255,255,255)'
       }
-    }
+    },
+    font:{
+      color: 'rgb(255,255,255)'
+    },
+    plot_bgcolor:"black",
+    paper_bgcolor:"#000000"
   };
 
   Plotly.newPlot('pie-chart', data, layout);
