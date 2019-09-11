@@ -101,6 +101,10 @@ function updateRealTimePrice(price){ //to be initiated once ticker is submitted
   console.log('inside updateRealTimePrice')
   let realTimePrice=document.getElementById('real-time-price')
   realTimePrice.innerText=`${ticker.value}: ${price}`
+  let tableLatestPrice=document.getElementById(`${ticker.value}-price`)
+  if (!!tableLatestPrice){
+    tableLatestPrice.innerText=Number(price).toFixed(2)
+  }
   //function to update innerText of realtimeprice div
   //leverage addNewPrices to prevent duplicating fetch requests
   updateUnrealized(price)
@@ -111,7 +115,7 @@ function updateUnrealized(price){
     let ticker=document.getElementById('ticker').value
     let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
     let update=new Position(username,ticker,price)
-    update.postUpdatedPrice()
+    update.postUpdatedPrice() //post updated price to the backend
   }
 }
 
@@ -431,7 +435,13 @@ function createPieChart(array){ //array of position objects
 
   let layout = {
     height: 400,
-    width: 500
+    width: 500,
+    title:{
+      text:"Portfolio Composition",
+      font:{
+        size: 24
+      }
+    }
   };
 
   Plotly.newPlot('pie-chart', data, layout);
