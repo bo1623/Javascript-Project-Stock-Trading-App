@@ -721,10 +721,18 @@ function addCountrySelectors(){
     console.log('inside country select event listener')
     let box=document.getElementById('country-select')
     let countryName=box.options[box.selectedIndex].text
-    console.log(countries[countryName])
+    newsByCountry(countries[countryName])
   })
 }
 
-function 
+function newsByCountry(name){
+  let url='https://newsapi.org/v2/top-headlines?'+
+          `country=${name}&category=business`+
+          `&apiKey=93db96180ea548c082a15c7b1a985770`
+  fetch(url)
+  .then(resp=>resp.json())
+  .then(json=>addArticlesToNewsbar(json["articles"]))
+}
+
 
 addCountrySelectors()
