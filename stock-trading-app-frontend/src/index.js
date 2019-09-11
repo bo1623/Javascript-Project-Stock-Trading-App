@@ -618,7 +618,7 @@ function topNews(){
 }
 
 function addArticlesToNewsbar(array){
-  let bar=document.getElementById('newsbar')
+  let bar=document.getElementById('news-column')
   let articles=document.getElementsByClassName('articles')
   while(articles[0]){
     articles[0].parentNode.removeChild(articles[0]);
@@ -642,7 +642,7 @@ let countries={
   "Argentina":"ar",
   "Austria":"at",
   "Australia":"au",
-  "Belgium":"be",,
+  "Belgium":"be",
   "Bulgaria":"bg",
   "Brazil":"br",
   "Canada":"ca",
@@ -694,13 +694,6 @@ let countries={
   "South Africa":"za"
 }
 
-let countryOptions=document.getElementById('country-select')
-for (key in countries){
-  countryOptions.innerHTML+=`
-  
-  `
-}
-
 document.getElementById('newsbar').addEventListener('submit',function(event){
   if(event.target.id==="topic-news"){
     let topic=document.getElementById('topic').value
@@ -715,3 +708,23 @@ document.getElementById('newsbar').addEventListener('submit',function(event){
   }
   event.preventDefault()
 })
+
+function addCountrySelectors(){
+  //adding options for each country
+  let countryOptions=document.getElementById('country-select')
+  for (key in countries){
+    countryOptions.innerHTML+=`
+    <option value=${key}>${key}</option>
+    `
+    }
+  countryOptions.addEventListener('change',function(){
+    console.log('inside country select event listener')
+    let box=document.getElementById('country-select')
+    let countryName=box.options[box.selectedIndex].text
+    console.log(countries[countryName])
+  })
+}
+
+function 
+
+addCountrySelectors()
