@@ -31,7 +31,7 @@
   color: white; /* White text */
   padding: 8px 10px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
-  /* float: left; /* Float the buttons side by side */ */
+  /* float: left; /* Float the buttons side by side */
 }
 
 #buy-sell-btns button:hover {
@@ -42,6 +42,7 @@
   float:left;
   margin: 0 5px;
   width: 23%;
+  font-weight: bold;
 }
 
 #cash {
@@ -211,6 +212,7 @@ h1, h2, h3 {
   color: rgb(255,71,19)
 }
 
+
 .cash-balance-div button{
   /* float:left; */
   margin: auto 5px;
@@ -219,6 +221,7 @@ h1, h2, h3 {
   color: black; /* White text */
   padding: 8px 10px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
+  font-weight: bold;
 }
 
 .cash-balance-div button:hover {
