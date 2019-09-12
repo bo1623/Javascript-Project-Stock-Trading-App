@@ -1,6 +1,7 @@
 class PositionsController < ApplicationController
   def index
-    positions=Position.all
+    user=User.find_by(username: params[:username])
+    positions=user.positions
     render json: PositionSerializer.new(positions).to_serialized_json
   end
 

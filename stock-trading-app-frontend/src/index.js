@@ -640,7 +640,15 @@ document.getElementsByClassName('modal-content')[0].addEventListener('submit',fu
 })
 
 function updatePieChart(){ //fetches json of all existing positions and creates new pie chart with them
-  fetch("http://localhost:3000/positions")
+  let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
+  fetch("http://localhost:3000/positions",{ //need to post instead of get because we want to post the username to the positions controller
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({username: username})
+  })
   .then(resp=>resp.json())
   .then(json=>createPieChart(json))
 }
