@@ -668,7 +668,7 @@ function addArticlesToNewsbar(array){
   let bar=document.getElementById('news-column')
   let articles=document.getElementsByClassName('articles')
   while(articles[0]){
-    articles[0].parentNode.removeChild(articles[0]);
+    articles[0].parentNode.removeChild(articles[0]); //to clear whatever articles were in the newsbar to start with
   }
   array.forEach(article=>{
     bar.innerHTML+=`
@@ -767,7 +767,7 @@ function addCountrySelectors(){
   countryOptions.addEventListener('change',function(){
     console.log('inside country select event listener')
     let box=document.getElementById('country-select')
-    let countryName=box.options[box.selectedIndex].text
+    let countryName=box.options[box.selectedIndex].text //selecting country name from the dropdown list
     newsByCountry(countries[countryName])
   })
 }
@@ -782,4 +782,4 @@ function newsByCountry(name){
 }
 
 
-addCountrySelectors()
+addCountrySelectors() //creating the options within the country dropdown list and addingeventlistener for a "change" event for the dropdown list

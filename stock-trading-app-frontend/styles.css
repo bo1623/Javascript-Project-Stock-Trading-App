@@ -228,3 +228,9 @@ h1, h2, h3 {
   background-color: rgb(252,169,0);
   color: white;
 }
+
+.published-time{
+  color: rgb(124,123,127);
+  font-size:small;
+  font-style:italic;
+}
