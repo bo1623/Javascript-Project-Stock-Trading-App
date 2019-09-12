@@ -26,12 +26,16 @@
 
 
 #buy-sell-btns button{
-  background-color: #0000cc;
+  background-color: #000066;
   border: 1px solid blue; /* Green border */
   color: white; /* White text */
   padding: 8px 10px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   /* float: left; /* Float the buttons side by side */ */
+}
+
+#buy-sell-btns button:hover {
+  background-color: #0000cc;
 }
 
 .btn-group button{
@@ -42,6 +46,8 @@
 
 #cash {
   padding: 10px auto;
+  color: rgb(255,206,0);
+  font-weight: bold
 }
 
 .modal {
@@ -50,19 +56,25 @@
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
+  width: 70%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.modal-content {
-  background-color: #fefefe;
+.modal-content{
+  background-color: rgb(255,255,255,0.7);
   margin: 15% auto; /* 15% from the top and centered */
   padding: 40px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  color: black;
+  text-align: center;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+.modal-content h3 { /*to overwrite the css selectors below that make h3 tags orange*/
+  color: black;
 }
 
 .cash-modal {
@@ -71,7 +83,7 @@
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
+  width: 70%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
@@ -79,11 +91,17 @@
 }
 
 .cash-modal-content {
-  background-color: #fefefe;
+  background-color: rgb(255,255,255,0.7);
   margin: 15% auto; /* 15% from the top and centered */
   padding: 40px;
+  color: black;
+  text-align: center;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+.cash-modal-content{
+  color: black;
 }
 
 .close-btn {
@@ -191,4 +209,19 @@ a {
 
 h1, h2, h3 {
   color: rgb(255,71,19)
+}
+
+.cash-balance-div button{
+  /* float:left; */
+  margin: auto 5px;
+  background-color: rgb(255,206,0);
+  border: 1px solid rgb(252,169,0);
+  color: black; /* White text */
+  padding: 8px 10px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+}
+
+.cash-balance-div button:hover {
+  background-color: rgb(252,169,0);
+  color: white;
 }

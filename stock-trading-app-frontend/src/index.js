@@ -270,9 +270,11 @@ class User{
 function displayCashBalance(user){
   let div=document.getElementById('cash')
   div.innerHTML+=`
-  <label id="cash-balance">Cash Balance: ${user['cash_balance']}</label>
-  <button id='deposit-cash'>Deposit</button>
-  <button id='withdraw-cash'>Withdraw</button>
+  <div class="cash-balance-div">
+    <label id="cash-balance">Cash Balance: ${user['cash_balance']}</label>
+    <button class="cash-transfer-btns" id='deposit-cash'>Deposit</button>
+    <button class="cash-transfer-btns" id='withdraw-cash'>Withdraw</button>
+  </div>
   `
 }
 
