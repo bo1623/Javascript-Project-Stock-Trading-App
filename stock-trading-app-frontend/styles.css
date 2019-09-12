@@ -165,6 +165,7 @@ h2 {
 	display: table-cell;
 	width: 70%;
 	vertical-align: top;
+  padding-left: 20px;
 }
 
 html {

@@ -437,10 +437,21 @@ function createPieChart(array){ //array of position objects
   let values=array.map(pos=>Number(pos.value))
   console.log(values)
   console.log(tickers)
+  let colors=['rgb(255,71,19)',
+  'rgb(255,206,0)',
+  'rgb(252,155,179)',
+  'rgb(0,139,92)',
+  'rgb(144,98,188)',
+  'rgb(255,255,255)',
+  'rgb(192,11,40)']
   let data = [{
     values: values,
     labels: tickers,
-    type: 'pie'
+    hole: .4,
+    type: 'pie',
+    marker: {
+      colors: colors
+    },
   }];
 
   let layout = {
