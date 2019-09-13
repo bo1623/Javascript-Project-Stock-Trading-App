@@ -1,7 +1,4 @@
 function plotData(prices,ticker){
-  console.log('inside plotting function')
-  let uniqueDates=[...new Set(prices.map(price=>{return price.timestamp.split(' ')[0]}))]
-  console.log(uniqueDates)
   let layout = {
     title: {
       text:`${ticker.toUpperCase()}`,
@@ -18,8 +15,8 @@ function plotData(prices,ticker){
     paper_bgcolor:"#000000"
   }
   Plotly.newPlot('chart',[{
-      x:[getTimes(prices)][0].reverse(),
-      y:[getPrices(prices)][0].reverse(),
+      x: [getTimes(prices)][0].reverse(),
+      y: [getPrices(prices)][0].reverse(),
       mode:'lines',
       line: {
         color: 'rgb(255, 206, 0)',
@@ -144,7 +141,7 @@ async function getLongAPI(ticker){
   })
   console.log('inside getAPI')
   console.log(getNewPrice(longPrices).timestamp)
-  plotData(longPrices,ticker)
+  plotData(longPrices,ticker) //adding extra argument to determine if plotting for long or short series
 
   fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=ZREIW6HJ1LEBYBQT`)
   .then(resp=>resp.json())
@@ -159,7 +156,7 @@ function addInitialRealTimePriceDiv(priceObj){ //only used in getLongAPI call so
   realTimePrice.innerText=`${priceObj["01. symbol"]}: ${priceObj["05. price"]}`
 }
 
-async function getAPI(ticker){
+async function getAPI(ticker){ //for intraday prices and chart
   let link=`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=1min&outputsize=compact&apikey=ZREIW6HJ1LEBYBQT`;
   const resp = await fetch(link)
   const json = await resp.json()
@@ -173,7 +170,12 @@ async function getAPI(ticker){
   })
   console.log('inside getAPI')
   console.log(getNewPrice(prices).timestamp)
-  plotData(prices,ticker)
+  let uniqueDates=[...new Set(prices.map(price=>{return price.timestamp.split(' ')[0]}))]
+  let latestDate= uniqueDates[0] //getting latest date
+  let modPrices=prices.filter(p=>p.timestamp.split(' ')[0]===latestDate) //filtering price objects where the date is equal to the latestdate
+  console.log(modPrices)
+  console.log('modPrices printed')
+  plotData(modPrices,ticker)
 }
 
 
