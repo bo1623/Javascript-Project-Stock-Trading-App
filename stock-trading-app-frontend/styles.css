@@ -178,6 +178,7 @@ h2 {
   bottom:0; /*makes sidebar scrollable*/
   position:fixed; /*makes sidebar scrollable*/
   /* Set the top and bottom to 0, so that the sidebar is exactly the same height as the viewport */
+  /* margin-left: 10px */
 }
 
 #content {

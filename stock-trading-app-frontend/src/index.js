@@ -22,7 +22,6 @@ function plotData(prices,ticker){
         color: 'rgb(255, 206, 0)',
         width: 3
       },
-      // connectgaps: false,
       transforms: [{
         type: 'filter',
         target: 'x',
@@ -63,8 +62,8 @@ const MarketClose = '160000'
 
 function getNewPrice(prices){
   let last = prices[0]
-  let lastPrice=last.price
-  let lastTime=last.timestamp
+  // let lastPrice=last.price
+  // let lastTime=last.timestamp
   return last //return last object within the api
 }
 
@@ -143,8 +142,18 @@ async function getLongAPI(ticker){
   console.log('inside getAPI')
   console.log(getNewPrice(longPrices).timestamp)
   plotData(longPrices,ticker)
-  addRealTimePriceDiv(longPrices)
+
+  fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=ZREIW6HJ1LEBYBQT`)
+  .then(resp=>resp.json())
+  .then(json=>addInitialRealTimePriceDiv(json["Global Quote"]))
+  // addRealTimePriceDiv(longPrices) //need to change this to take the latest price
   setInterval(updateChart,60000) //setting interval here to call updateRealTimePrice which sits within updateChart
+}
+
+function addInitialRealTimePriceDiv(priceObj){ //only used in getLongAPI call so that the realtimeprice div shows the most updated price taken from a
+  //separate fetch, as opposed to taking the last obj from the longAPI array, which would only give us the previous day's close
+  let realTimePrice=document.getElementById('real-time-price')
+  realTimePrice.innerText=`${priceObj["01. symbol"]}: ${priceObj["05. price"]}`
 }
 
 async function getAPI(ticker){
@@ -501,17 +510,6 @@ for (let i=0; i<closeBtns.length;i++){
     cashModal.style.display="none"
   })
 }
-//
-// closeBtns.forEach(btn=>{
-//   btn.addEventListener('click',function(){
-//     modal.style.display="none"
-//     cashModal.style.display="none"
-//   })
-// })
-
-// closeBtn.onclick = function() {
-//   modal.style.display = "none";
-// }
 
 function addStockTradeForm(direction){
   let ticker=document.getElementById('ticker').value
