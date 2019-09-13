@@ -1,7 +1,10 @@
 function plotData(prices,ticker){
+  console.log('inside plotting function')
+  let uniqueDates=[...new Set(prices.map(price=>{return price.timestamp.split(' ')[0]}))]
+  console.log(uniqueDates)
   let layout = {
     title: {
-      text:`${ticker}`,
+      text:`${ticker.toUpperCase()}`,
       font: {
         // family: 'Courier New, monospace',
         size: 24,
@@ -172,6 +175,7 @@ async function getAPI(ticker){
   console.log(getNewPrice(prices).timestamp)
   plotData(prices,ticker)
 }
+
 
 document.getElementById('insert-ticker').addEventListener('submit',function(event){
   let ticker=document.getElementById('ticker').value
