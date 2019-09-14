@@ -627,8 +627,9 @@ class Position{//to be used in updateRealTimePrice
 
 function updateUnrealizedAndValueInTable(position){
   console.log('updating unrealized profit in table')
+  console.log(position)
   let ticker=position.stock.ticker
-  let tableLatestPrice=document.getElementById(`${ticker.value}-price`)
+  let tableLatestPrice=document.getElementById(`${ticker}-price`)
   if (!!tableLatestPrice){
     tableLatestPrice.innerText=Number(position.stock.latest_price).toFixed(2)
   }
@@ -645,7 +646,7 @@ document.addEventListener('click',function(event){ //for update price buttons in
   }
 })
 
-function updateLatestPrice(ticker){
+function updateLatestPrice(ticker){ //for updating individual portfolio positions in the DOM
   let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
   fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=ZREIW6HJ1LEBYBQT`)
   .then(resp=>resp.json())
@@ -654,9 +655,10 @@ function updateLatestPrice(ticker){
 }
 
 function updateLatestPriceInDOM(username,ticker){
-  fetch(`https://localhost:3000/positions`,{
+  console.log(`in updateLatestPriceInDOM for ${ticker}`)
+  fetch("http://localhost:3000/positions",{
     method: 'POST',
-    header: {
+    headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"
     },

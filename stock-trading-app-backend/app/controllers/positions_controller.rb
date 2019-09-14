@@ -1,3 +1,4 @@
+
 class PositionsController < ApplicationController
   def index
     user=User.find_by(username: params[:username])
@@ -20,6 +21,8 @@ class PositionsController < ApplicationController
   def updateprice
     user=User.find_by(username: params[:username]) #imagine getting a fetch request from JS with username as the params
     stock=Stock.find_by(ticker:params[:ticker]) #imagine getting a fetch request from JS containing ticker in params
+    stock.latest_price=params[:price]
+    stock.save
     position=Position.find_by(stock_id: stock.id, user_id: user.id)
     position.update_unrealized(price: params[:price].to_f)
     render json: PositionSerializer.new(position).to_serialized_json
