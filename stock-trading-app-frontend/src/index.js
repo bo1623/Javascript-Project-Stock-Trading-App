@@ -431,7 +431,7 @@ function createPositionTable(array){ //array of position objects
       <th>Value</th>
       <th>Unrealized Profit</th>
       <th>Realized Profit</th>
-      <th>Update</th>
+      <th>Update Price</th>
     </tr>
   `
   array.forEach(pos=>{
@@ -628,10 +628,42 @@ class Position{//to be used in updateRealTimePrice
 function updateUnrealizedAndValueInTable(position){
   console.log('updating unrealized profit in table')
   let ticker=position.stock.ticker
+  let tableLatestPrice=document.getElementById(`${ticker.value}-price`)
+  if (!!tableLatestPrice){
+    tableLatestPrice.innerText=Number(position.stock.latest_price).toFixed(2)
+  }
   let unrealized=document.querySelector(`#${ticker}-unrealized-profit`)
   let value=document.querySelector(`#${ticker}-value`)
   unrealized.innerText=Number(position.unrealized).toFixed(2)
   value.innerText=Number(position.value).toFixed(2)
+}
+
+document.addEventListener('click',function(event){ //for update price buttons in position table
+  if(event.target.className==='update-price-btn'){
+    let ticker=event.target.parentNode.getAttribute('ticker')
+    updateLatestPrice(ticker)
+  }
+})
+
+function updateLatestPrice(ticker){
+  let username=document.querySelector('#logged-in-user').innerText.split(' ')[1]
+  fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=ZREIW6HJ1LEBYBQT`)
+  .then(resp=>resp.json())
+  .then(json=>updatePricesInBackend(username,ticker,json["Global Quote"]["05. price"])) //update price in the backend
+  .then(()=>updateLatestPriceInDOM(username,ticker)) //updating price and unrealized profit and value in DOM
+}
+
+function updateLatestPriceInDOM(username,ticker){
+  fetch(`https://localhost:3000/positions`,{
+    method: 'POST',
+    header: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({username: username,ticker:ticker})
+  })
+  .then(resp=>resp.json())
+  .then(json=>updateUnrealizedAndValueInTable(json))
 }
 
 document.getElementsByClassName('modal-content')[0].addEventListener('submit',function(event){

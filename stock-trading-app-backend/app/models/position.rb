@@ -28,4 +28,5 @@ class Position < ApplicationRecord
     self.save
   end
 
+
 end

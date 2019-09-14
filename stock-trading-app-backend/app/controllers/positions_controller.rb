@@ -7,8 +7,14 @@ class PositionsController < ApplicationController
 
   def create #to receive fetch post request from renderPortfolioView() in index.js
     user=User.find_by(username: params[:username]) #imagine getting a fetch request from JS with username as the params
-    positions=user.positions
-    render json: PositionSerializer.new(positions).to_serialized_json
+    if !!params[:ticker] #taking fetch request from updateLatestPrice() method to update individual lines in the position table
+      stock=Stock.find_by(ticker: params[:ticker])
+      position=Position.find_by(user_id: user.id, stock_id: stock.id)
+      render json: PositionSerializer.new(position).to_serialized_json
+    else
+      positions=user.positions
+      render json: PositionSerializer.new(positions).to_serialized_json
+    end
   end
 
   def updateprice
