@@ -172,7 +172,8 @@ async function getAPI(ticker){ //for intraday prices and chart
   console.log(getNewPrice(prices).timestamp)
   let uniqueDates=[...new Set(prices.map(price=>{return price.timestamp.split(' ')[0]}))]
   let latestDate= uniqueDates[0] //getting latest date
-  let modPrices=prices.filter(p=>p.timestamp.split(' ')[0]===latestDate) //filtering price objects where the date is equal to the latestdate
+  let modPrices=prices.filter(p=>p.timestamp.split(' ')[0]===latestDate)
+  //filtering out price objects where the date is not equal to the latestdate
   console.log(modPrices)
   console.log('modPrices printed')
   plotData(modPrices,ticker)
@@ -430,6 +431,7 @@ function createPositionTable(array){ //array of position objects
       <th>Value</th>
       <th>Unrealized Profit</th>
       <th>Realized Profit</th>
+      <th>Update</th>
     </tr>
   `
   array.forEach(pos=>{
@@ -442,6 +444,7 @@ function createPositionTable(array){ //array of position objects
         <td id="${pos.stock.ticker}-value">${Number(pos.value).toFixed(2)}</td>
         <td id="${pos.stock.ticker}-unrealized-profit">${Number(pos.unrealized).toFixed(2)}</td>
         <td id="${pos.stock.ticker}-realized">${Number(pos.realized).toFixed(2)}</td>
+        <td ticker="${pos.stock.ticker}"><button class="update-price-btn">Update</button></td>
       </tr>
     `
   })
@@ -583,6 +586,7 @@ function newTradeUpdateTable(position){
         <td id="${ticker}-value">${Number(position.value).toFixed(2)}</td>
         <td id="${ticker}-unrealized-profit">${Number(position.unrealized).toFixed(2)}</td>
         <td id="${ticker}-realized">${Number(position.realized).toFixed(2)}</td>
+        <td ticker="${ticker}"><button class="update-price-btn">Update</button></td>
       </tr>
     `
   }
