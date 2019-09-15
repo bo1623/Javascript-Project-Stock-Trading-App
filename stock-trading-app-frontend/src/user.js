@@ -138,6 +138,9 @@ function createPositionTable(array){ //array of position objects
 function createPieChart(array){ //array of position objects
   let tickers=array.map(pos=>pos.stock.ticker)
   let values=array.map(pos=>Number(pos.value))
+  tickers.push('Cash')
+  let cashBalance=Number(document.querySelector('#cash-balance').innerText.split(' ')[2])
+  values.push(cashBalance)
   console.log(values)
   console.log(tickers)
   let colors=['rgb(255,71,19)',
