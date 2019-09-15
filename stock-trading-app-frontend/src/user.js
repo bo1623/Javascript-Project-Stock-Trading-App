@@ -114,7 +114,7 @@ function createPositionTable(array){ //array of position objects
       <th>Value</th>
       <th>Unrealized Profit</th>
       <th>Realized Profit</th>
-      <th>Update Price</th>
+      <th>Price Refresh</th>
     </tr>
   `
   array.forEach(pos=>{
